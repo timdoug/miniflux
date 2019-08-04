@@ -34,7 +34,7 @@
     <div class="pagination-top">
         {{ template "pagination" .pagination }}
     </div>
-    <div class="items hide-read-items">
+    <div class="items">
         {{ range .entries }}
         <article role="article" class="item entry-item {{ if $.user.EntrySwipe }}entry-swipe{{ end }} item-status-{{ .Status }}" data-id="{{ .ID }}">
             <div class="item-header" dir="auto">

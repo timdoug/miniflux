@@ -709,10 +709,6 @@ template {
     font-weight: var(--item-title-link-font-weight);
 }
 
-.item-status-read .item-title a {
-    color: var(--item-status-read-title-link-color);
-}
-
 .item-meta {
     color: var(--item-meta-focus-color);
     font-size: 0.8em;

@@ -739,10 +739,6 @@ a.button {
     touch-action: pan-y;
 }
 
-.hide-read-items .item-status-read:not(.current-item) {
-    display: none;
-}
-
 /* Feeds list */
 article.feed-parsing-error {
     background-color: var(--feed-parsing-error-background-color);

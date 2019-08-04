@@ -135,9 +135,6 @@ function handleEntryStatus(element, setToRead) {
         if (!setToRead || currentEntry.querySelector("a[data-toggle-status]").dataset.value == "unread") {
             toggleEntryStatus(currentEntry, toasting);
         }
-        if (isListView() && currentEntry.classList.contains('current-item')) {
-            goToNextListItem();
-        }
     }
 }
 

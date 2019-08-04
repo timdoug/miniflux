@@ -477,7 +477,9 @@ function goToListItem(offset) {
         return;
     }
 
-    for (let i = 0; i < items.length; i++) {
+    let bookend = (offset > 0) ? 1 : 0;
+
+    for (let i = 1 - bookend; i < items.length - bookend; i++) {
         if (items[i].classList.contains("current-item")) {
             items[i].classList.remove("current-item");
 

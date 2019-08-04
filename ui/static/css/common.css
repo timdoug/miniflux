@@ -40,9 +40,7 @@ a {
 
 a:focus {
     outline: 0;
-    color: var(--link-focus-color);
     text-decoration: none;
-    outline: 1px dotted #aaa;
 }
 
 a:hover {
@@ -699,6 +697,7 @@ template {
 }
 
 .item-title a {
+    font-size: 1.2em;
     text-decoration: none;
     font-weight: var(--item-title-link-font-weight);
 }
@@ -873,10 +872,7 @@ article.category-has-unread {
 
 .entry-content {
     padding-top: 15px;
-    font-size: 1.2em;
     font-weight: var(--entry-content-font-weight);
-    font-family: var(--entry-content-font-family);
-    color: var(--entry-content-color);
     line-height: 1.4em;
     overflow-wrap: break-word;
     touch-action: pan-y pinch-zoom;

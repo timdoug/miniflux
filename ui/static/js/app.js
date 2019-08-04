@@ -460,7 +460,7 @@ function goToPreviousListItem() {
         return;
     }
 
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 1; i < items.length; i++) {
         if (items[i].classList.contains("current-item")) {
             items[i].classList.remove("current-item");
 
@@ -492,7 +492,7 @@ function goToNextListItem() {
         return;
     }
 
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length - 1; i++) {
         if (items[i].classList.contains("current-item")) {
             items[i].classList.remove("current-item");
 

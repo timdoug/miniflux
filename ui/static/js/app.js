@@ -161,6 +161,10 @@ function markEntryAsRead(element) {
 
         let entryID = parseInt(element.dataset.id, 10);
         updateEntriesStatus([entryID], "read");
+
+        let link = element.querySelector("a[data-toggle-status]");
+        link.innerHTML = link.dataset.labelUnread;
+        link.dataset.value = "read";
     }
 }
 
@@ -438,6 +442,7 @@ function goToNextListItem() {
     if (document.querySelector(".current-item") === null) {
         items[0].classList.add("current-item");
         items[0].querySelector('.item-header a').focus();
+        markEntryAsRead(items[0]);
         return;
     }
 
@@ -455,6 +460,7 @@ function goToNextListItem() {
             nextItem.classList.add("current-item");
             DomHelper.scrollPageTo(nextItem);
             nextItem.querySelector('.item-header a').focus();
+            markEntryAsRead(nextItem);
 
             break;
         }

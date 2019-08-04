@@ -752,10 +752,6 @@ template {
     touch-action: pan-y;
 }
 
-.hide-read-items .item-status-read:not(.current-item) {
-    display: none;
-}
-
 .touch-item {
     transition-property: transform;
     transition-duration: 0s;

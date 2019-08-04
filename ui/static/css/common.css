@@ -737,10 +737,6 @@ a.button {
     overflow-x: hidden;
 }
 
-.hide-read-items .item-status-read:not(.current-item) {
-    display: none;
-}
-
 /* Feeds list */
 article.feed-parsing-error {
     background-color: var(--feed-parsing-error-background-color);

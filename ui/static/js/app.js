@@ -120,9 +120,6 @@ function handleEntryStatus(element) {
     let currentEntry = findEntry(element);
     if (currentEntry) {
         toggleEntryStatus(currentEntry, toasting);
-        if (isListView() && currentEntry.classList.contains('current-item')) {
-            goToNextListItem();
-        }
     }
 }
 

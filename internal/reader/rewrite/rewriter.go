@@ -26,7 +26,6 @@ func Rewriter(entryURL string, entry *model.Entry, customRewriteRules string) {
 	}
 
 	rules := parseRules(rulesList)
-	rules = append(rules, rule{name: "add_pdf_download_link"})
 
 	slog.Debug("Rewrite rules applied",
 		slog.Any("rules", rules),
@@ -69,16 +68,6 @@ func applyRule(entryURL string, entry *model.Entry, rule rule) {
 		entry.Content = addMailtoSubject(entryURL, entry.Content)
 	case "add_dynamic_image":
 		entry.Content = addDynamicImage(entryURL, entry.Content)
-	case "add_youtube_video":
-		entry.Content = addYoutubeVideo(entryURL, entry.Content)
-	case "add_invidious_video":
-		entry.Content = addInvidiousVideo(entryURL, entry.Content)
-	case "add_youtube_video_using_invidious_player":
-		entry.Content = addYoutubeVideoUsingInvidiousPlayer(entryURL, entry.Content)
-	case "add_youtube_video_from_id":
-		entry.Content = addYoutubeVideoFromId(entry.Content)
-	case "add_pdf_download_link":
-		entry.Content = addPDFLink(entryURL, entry.Content)
 	case "nl2br":
 		entry.Content = replaceLineFeeds(entry.Content)
 	case "convert_text_link", "convert_text_links":

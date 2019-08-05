@@ -107,16 +107,6 @@ func TestRewriteMailtoLink(t *testing.T) {
 	}
 }
 
-func TestRewriteWithPDFLink(t *testing.T) {
-	description := "test"
-	output := Rewriter("https://example.org/document.pdf", description, ``)
-	expected := `<a href="https://example.org/document.pdf">PDF</a><br>test`
-
-	if expected != output {
-		t.Errorf(`Not expected output: got "%s" instead of "%s"`, output, expected)
-	}
-}
-
 func TestRewriteWithNoLazyImage(t *testing.T) {
 	description := `<img src="https://example.org/image.jpg" alt="Image"><noscript><p>Some text</p></noscript>`
 	output := Rewriter("https://example.org/article", description, "add_dynamic_image")

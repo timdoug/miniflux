@@ -5,7 +5,6 @@
 package rewrite // import "miniflux.app/reader/rewrite"
 
 import (
-	"fmt"
 	"html"
 	"net/url"
 	"regexp"
@@ -145,33 +144,6 @@ func addYoutubeVideo(entryURL, entryContent string) string {
 	if len(matches) == 2 {
 		video := `<iframe width="650" height="350" frameborder="0" src="https://www.youtube-nocookie.com/embed/` + matches[1] + `" allowfullscreen></iframe>`
 		return video + `<br>` + entryContent
-	}
-	return entryContent
-}
-
-func addYoutubeVideoUsingInvidiousPlayer(entryURL, entryContent string) string {
-	matches := youtubeRegex.FindStringSubmatch(entryURL)
-
-	if len(matches) == 2 {
-		video := `<iframe width="650" height="350" frameborder="0" src="https://invidio.us/embed/` + matches[1] + `" allowfullscreen></iframe>`
-		return video + `<br>` + entryContent
-	}
-	return entryContent
-}
-
-func addInvidiousVideo(entryURL, entryContent string) string {
-	matches := invidioRegex.FindStringSubmatch(entryURL)
-	fmt.Println(matches)
-	if len(matches) == 2 {
-		video := `<iframe width="650" height="350" frameborder="0" src="https://invidio.us/embed/` + matches[1] + `" allowfullscreen></iframe>`
-		return video + `<br>` + entryContent
-	}
-	return entryContent
-}
-
-func addPDFLink(entryURL, entryContent string) string {
-	if strings.HasSuffix(entryURL, ".pdf") {
-		return fmt.Sprintf(`<a href="%s">PDF</a><br>%s`, entryURL, entryContent)
 	}
 	return entryContent
 }

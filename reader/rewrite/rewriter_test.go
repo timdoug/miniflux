@@ -191,22 +191,6 @@ func TestRewriteMailtoLink(t *testing.T) {
 	}
 }
 
-func TestRewriteWithPDFLink(t *testing.T) {
-	controlEntry := &model.Entry{
-		Title:   `A title`,
-		Content: `<a href="https://example.org/document.pdf">PDF</a><br>test`,
-	}
-	testEntry := &model.Entry{
-		Title:   `A title`,
-		Content: `test`,
-	}
-	Rewriter("https://example.org/document.pdf", testEntry, ``)
-
-	if !reflect.DeepEqual(testEntry, controlEntry) {
-		t.Errorf(`Not expected output: got "%+v" instead of "%+v"`, testEntry, controlEntry)
-	}
-}
-
 func TestRewriteWithNoLazyImage(t *testing.T) {
 	controlEntry := &model.Entry{
 		Title:   `A title`,

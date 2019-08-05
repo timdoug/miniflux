@@ -5,7 +5,6 @@
 package rewrite // import "miniflux.app/reader/rewrite"
 
 import (
-	"fmt"
 	"html"
 	"net/url"
 	"regexp"
@@ -224,13 +223,6 @@ func addInvidiousVideo(entryURL, entryContent string) string {
 	if len(matches) == 3 {
 		video := `<iframe width="650" height="350" frameborder="0" src="https://` + matches[1] + `/embed/` + matches[2] + `" allowfullscreen></iframe>`
 		return video + `<br>` + entryContent
-	}
-	return entryContent
-}
-
-func addPDFLink(entryURL, entryContent string) string {
-	if strings.HasSuffix(entryURL, ".pdf") {
-		return fmt.Sprintf(`<a href="%s">PDF</a><br>%s`, entryURL, entryContent)
 	}
 	return entryContent
 }

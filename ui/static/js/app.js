@@ -454,6 +454,7 @@ function goToPreviousListItem() {
     if (document.querySelector(".current-item") === null) {
         items[0].classList.add("current-item");
         items[0].querySelector('.item-header a').focus();
+        handleEntryStatus(items[0], true);
         return;
     }
 
@@ -471,6 +472,7 @@ function goToPreviousListItem() {
             nextItem.classList.add("current-item");
             DomHelper.scrollPageTo(nextItem);
             nextItem.querySelector('.item-header a').focus();
+            handleEntryStatus(nextItem, true);
 
             break;
         }
@@ -486,6 +488,7 @@ function goToNextListItem() {
     if (document.querySelector(".current-item") === null) {
         items[0].classList.add("current-item");
         items[0].querySelector('.item-header a').focus();
+        handleEntryStatus(items[0], true);
         return;
     }
 
@@ -503,6 +506,7 @@ function goToNextListItem() {
             nextItem.classList.add("current-item");
             DomHelper.scrollPageTo(nextItem);
             nextItem.querySelector('.item-header a').focus();
+            handleEntryStatus(nextItem, true);
 
             break;
         }

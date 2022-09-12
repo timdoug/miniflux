@@ -9,7 +9,7 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/golang/gddo v0.0.0-20200831202555-721e228c7686 // indirect
 	github.com/gorilla/mux v1.8.0
-	github.com/lib/pq v1.10.6
+	github.com/lib/pq v1.10.7
 	github.com/mitchellh/go-server-timing v1.0.2-0.20201108055052-feb680ab92c2
 	github.com/pquerna/cachecontrol v0.0.0-20180517163645-1555304b9b35 // indirect
 	github.com/prometheus/client_golang v1.13.0
@@ -22,7 +22,7 @@ require (
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f
 	golang.org/x/oauth2 v0.0.0-20220223155221-ee480838109b
 	golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab // indirect
-	golang.org/x/term v0.0.0-20220722155259-a9ba230a4035 // indirect
+	golang.org/x/term v0.0.0-20220722155259-a9ba230a4035
 	gopkg.in/square/go-jose.v2 v2.5.0 // indirect
 	mvdan.cc/xurls/v2 v2.4.0
 )

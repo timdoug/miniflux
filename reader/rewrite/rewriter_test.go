@@ -66,7 +66,7 @@ func TestRewriteWithNoMatchingRule(t *testing.T) {
 func TestRewriteWithYoutubeLink(t *testing.T) {
 	controlEntry := &model.Entry{
 		Title:   `A title`,
-		Content: `<iframe width="650" height="350" frameborder="0" src="https://www.youtube-nocookie.com/embed/1234" allowfullscreen></iframe><br>Video Description`,
+		Content: `Video Description`,
 	}
 	testEntry := &model.Entry{
 		Title:   `A title`,

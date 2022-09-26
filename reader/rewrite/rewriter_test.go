@@ -56,7 +56,7 @@ func TestRewriteWithNoMatchingRule(t *testing.T) {
 
 func TestRewriteWithYoutubeLink(t *testing.T) {
 	output := Rewriter("https://www.youtube.com/watch?v=1234", "Video Description", ``)
-	expected := `<iframe width="650" height="350" frameborder="0" src="https://www.youtube-nocookie.com/embed/1234" allowfullscreen></iframe><br>Video Description`
+	expected := `Video Description`
 
 	if expected != output {
 		t.Errorf(`Not expected output: got "%s" instead of "%s"`, output, expected)

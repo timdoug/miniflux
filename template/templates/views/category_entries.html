@@ -51,7 +51,7 @@
             <div class="item-header" dir="auto">
                 <span class="item-title">
                     {{ if ne .Feed.Icon.IconID 0 }}
-                        <img src="{{ route "icon" "iconID" .Feed.Icon.IconID }}" width="16" height="16" loading="lazy" alt="{{ .Feed.Title }}">
+                        <img src="{{ route "icon" "iconID" .Feed.Icon.IconID }}" width="16" height="16" loading="eager" alt="{{ .Feed.Title }}">
                     {{ end }}
                     <a href="{{ route "categoryEntry" "categoryID" .Feed.Category.ID "entryID" .ID }}" title="{{ .Title }}">{{ .Title }}</a>
                 </span>

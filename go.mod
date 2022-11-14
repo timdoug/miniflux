@@ -12,14 +12,14 @@ require (
 	github.com/pquerna/cachecontrol v0.0.0-20180517163645-1555304b9b35 // indirect
 	github.com/prometheus/client_golang v1.13.0
 	github.com/rylans/getlang v0.0.0-20200505200108-4c3188ff8a2d
+	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/tdewolff/minify/v2 v2.12.4
 	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
 	github.com/yuin/goldmark v1.5.2
 	golang.org/x/crypto v0.1.0
-	golang.org/x/net v0.1.0
-	golang.org/x/oauth2 v0.1.0
-	golang.org/x/term v0.1.0
-	golang.org/x/text v0.4.0 // indirect
+	golang.org/x/net v0.2.0
+	golang.org/x/oauth2 v0.2.0
+	golang.org/x/term v0.2.0
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 	mvdan.cc/xurls/v2 v2.4.0
 )

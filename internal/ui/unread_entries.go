@@ -28,7 +28,6 @@ func (h *handler) showUnreadPage(w http.ResponseWriter, r *http.Request) {
 		WithOffset(offset).
 		WithLimit(user.EntriesPerPage).
 		WithGloballyVisible().
-		WithoutContent().
 		GetEntriesWithCount()
 	if err != nil {
 		response.HTMLServerError(w, r, err)
@@ -44,7 +43,6 @@ func (h *handler) showUnreadPage(w http.ResponseWriter, r *http.Request) {
 			WithSorting("id", user.EntryDirection).
 			WithLimit(user.EntriesPerPage).
 			WithGloballyVisible().
-			WithoutContent().
 			GetEntriesWithCount()
 		if err != nil {
 			response.HTMLServerError(w, r, err)

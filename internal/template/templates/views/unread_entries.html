@@ -68,6 +68,9 @@
                 </span>
             </header>
             {{ template "item_meta" dict "user" $.user "entry" . "hasSaveEntry" $.hasSaveEntry }}
+            <span class="entry-content">
+                {{ noescape (proxyFilter .Content) }}
+            </span>
         </article>
         {{ end }}
     </div>

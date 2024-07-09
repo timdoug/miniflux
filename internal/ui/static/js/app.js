@@ -392,6 +392,7 @@ function goToListItem(offset) {
         items[0].classList.add("current-item");
         items[0].focus();
         scrollPageTo(items[0]);
+        handleEntryStatus((offset > 0) ? "next" : "previous", items[0], true);
         return;
     }
 
@@ -430,6 +431,7 @@ function goToListItem(offset) {
         newItem.classList.add("current-item");
         newItem.focus();
         scrollPageTo(newItem);
+        handleEntryStatus((offset > 0) ? "next" : "previous", newItem, true);
     }
 }
 

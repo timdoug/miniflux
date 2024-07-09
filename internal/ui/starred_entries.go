@@ -26,7 +26,6 @@ func (h *handler) showStarredPage(w http.ResponseWriter, r *http.Request) {
 		WithSorting("id", user.EntryDirection).
 		WithOffset(offset).
 		WithLimit(user.EntriesPerPage).
-		WithoutContent().
 		GetEntriesWithCount()
 	if err != nil {
 		response.HTMLServerError(w, r, err)

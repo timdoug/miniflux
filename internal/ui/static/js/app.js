@@ -186,16 +186,6 @@ function handleEntryStatus(item, element, setToRead) {
         if (!setToRead || currentEntry.querySelector(":is(a, button)[data-toggle-status]").dataset.value === "unread") {
             toggleEntryStatus(currentEntry, toasting);
         }
-        if (isListView() && currentEntry.classList.contains('current-item')) {
-            switch (item) {
-            case "previous":
-                goToListItem(-1);
-                break;
-            case "next":
-                goToListItem(1);
-                break;
-            }
-        }
     }
 }
 

@@ -26,12 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
         keyboardHandler.on("V", () => openOriginalLink(true));
         keyboardHandler.on("c", () => openCommentLink(false));
         keyboardHandler.on("C", () => openCommentLink(true));
-        keyboardHandler.on("m", () => handleEntryStatus("next"));
-        keyboardHandler.on("M", () => handleEntryStatus("previous"));
+        keyboardHandler.on("u", () => handleEntryStatus("next"));
+        keyboardHandler.on("U", () => handleEntryStatus("previous"));
         keyboardHandler.on("A", markPageAsRead);
-        keyboardHandler.on("s", () => handleSaveEntry());
+        keyboardHandler.on("S", () => handleSaveEntry());
         keyboardHandler.on("d", handleFetchOriginalContent);
-        keyboardHandler.on("f", () => handleBookmark());
+        keyboardHandler.on("s", () => handleBookmark());
         keyboardHandler.on("F", goToFeed);
         keyboardHandler.on("R", handleRefreshAllFeeds);
         keyboardHandler.on("?", showKeyboardShortcuts);

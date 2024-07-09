@@ -611,16 +611,6 @@ function handleEntryStatus(navigationDirection, element, setToRead) {
         if (!setToRead || currentEntry.querySelector(":is(a, button)[data-toggle-status]").dataset.value === "unread") {
             toggleEntryStatus(currentEntry, isEntryView());
         }
-        if (isListView() && currentEntry.classList.contains('current-item')) {
-            switch (navigationDirection) {
-            case "previous":
-                goToListItem(-1);
-                break;
-            case "next":
-                goToListItem(1);
-                break;
-            }
-        }
     }
 }
 

@@ -877,10 +877,6 @@ dialog {
     touch-action: pan-y;
 }
 
-.hide-read-items .item-status-read:not(.current-item) {
-    display: none;
-}
-
 .entry-swipe {
     transition-property: transform;
     transition-duration: 0s;

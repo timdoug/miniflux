@@ -11,14 +11,7 @@ class DomHelper {
     }
 
     static scrollPageTo(element, evenIfOnScreen) {
-        const windowScrollPosition = window.pageYOffset;
-        const windowHeight = document.documentElement.clientHeight;
-        const viewportPosition = windowScrollPosition + windowHeight;
-        const itemBottomPosition = element.offsetTop + element.offsetHeight;
-
-        if (evenIfOnScreen || viewportPosition - itemBottomPosition < 0 || viewportPosition - element.offsetTop > windowHeight) {
-            window.scrollTo(0, element.offsetTop - 10);
-        }
+        window.scrollTo(0, element.offsetTop - 10);
     }
 
     static getVisibleElements(selector) {

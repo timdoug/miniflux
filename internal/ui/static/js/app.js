@@ -422,7 +422,13 @@ function goToListItem(offset) {
     } else if (offset === BOTTOM) {
         newIndex = items.length - 1;
     } else {
-        newIndex = (currentIndex + offset + items.length) % items.length;
+        // Prevent scrolling past first/last item
+        newIndex = currentIndex + offset;
+        if (newIndex < 0) {
+            newIndex = 0;
+        } else if (newIndex >= items.length) {
+            newIndex = items.length - 1;
+        }
     }
 
     // Update selection if moving to a different item

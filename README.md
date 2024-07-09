@@ -1,3 +1,14 @@
+timdoug's hacks
+===============
+Miniflux is excellent, though I wanted a slightly different reading experience. This repository tracks my changes, which I will periodically re-sync. Nothing here is intended to be upstreamed.
+
+Looks like this:
+
+![screenshot](https://raw.githubusercontent.com/timdoug/miniflux/master/screenshot.png)
+
+Original README follows.
+
+
 Miniflux 2
 ==========
 

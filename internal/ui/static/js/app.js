@@ -533,6 +533,7 @@ function goToListItem(offset) {
     if (document.querySelector(".current-item") === null) {
         items[0].classList.add("current-item");
         items[0].focus();
+        handleEntryStatus((offset > 0) ? "next" : "previous", items[0], true);
         return;
     }
 
@@ -555,6 +556,7 @@ function goToListItem(offset) {
             item.classList.add("current-item");
             scrollPageTo(item);
             item.focus();
+            handleEntryStatus((offset > 0) ? "next" : "previous", item, true);
 
             break;
         }

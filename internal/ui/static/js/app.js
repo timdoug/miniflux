@@ -1193,12 +1193,12 @@ function initializeKeyboardShortcuts() {
     keyboardHandler.on("C", () => openCommentLinkAction(true));
 
     // Entry management
-    keyboardHandler.on("m", () => handleEntryStatus("next"));
-    keyboardHandler.on("M", () => handleEntryStatus("previous"));
+    keyboardHandler.on("u", () => handleEntryStatus("next"));
+    keyboardHandler.on("U", () => handleEntryStatus("previous"));
     keyboardHandler.on("A", markPageAsReadAction);
-    keyboardHandler.on("s", () => handleSaveEntryAction());
+    keyboardHandler.on("S", () => handleSaveEntryAction());
     keyboardHandler.on("d", handleFetchOriginalContentAction);
-    keyboardHandler.on("f", () => handleBookmarkAction());
+    keyboardHandler.on("s", () => handleBookmarkAction());
 
     // Feed actions
     keyboardHandler.on("F", goToFeedPage);

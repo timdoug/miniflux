@@ -113,7 +113,7 @@
                         {{ end }}
                     >
                         {{ if ne .Feed.Icon.IconID 0 }}
-                        <img src="{{ route "icon" "iconID" .Feed.Icon.IconID }}" width="16" height="16" loading="lazy" alt="">
+                        <img src="{{ route "icon" "iconID" .Feed.Icon.IconID }}" width="16" height="16" loading="eager" alt="">
                         {{ end }}
                         {{ .Title }}
                     </a>

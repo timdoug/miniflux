@@ -36,7 +36,7 @@ func BenchmarkSanitize(b *testing.B) {
 }
 
 func TestValidInput(t *testing.T) {
-	input := `<p>This is a <strong>text</strong> with an image: <img src="http://example.org/" alt="Test" loading="lazy">.</p>`
+	input := `<p>This is a <strong>text</strong> with an image: <img src="http://example.org/" alt="Test" loading="eager">.</p>`
 	output := Sanitize("http://example.org/", input)
 
 	if input != output {
@@ -46,7 +46,7 @@ func TestValidInput(t *testing.T) {
 
 func TestImgWithWidthAndHeightAttribute(t *testing.T) {
 	input := `<img src="https://example.org/image.png" width="10" height="20">`
-	expected := `<img src="https://example.org/image.png" width="10" height="20" loading="lazy">`
+	expected := `<img src="https://example.org/image.png" width="10" height="20" loading="eager">`
 	output := Sanitize("http://example.org/", input)
 
 	if output != expected {
@@ -56,7 +56,7 @@ func TestImgWithWidthAndHeightAttribute(t *testing.T) {
 
 func TestImgWithWidthAndHeightAttributeLargerThanMinifluxLayout(t *testing.T) {
 	input := `<img src="https://example.org/image.png" width="1200" height="675">`
-	expected := `<img src="https://example.org/image.png" loading="lazy">`
+	expected := `<img src="https://example.org/image.png" loading="eager">`
 	output := Sanitize("http://example.org/", input)
 
 	if output != expected {
@@ -66,7 +66,7 @@ func TestImgWithWidthAndHeightAttributeLargerThanMinifluxLayout(t *testing.T) {
 
 func TestImgWithIncorrectWidthAndHeightAttribute(t *testing.T) {
 	input := `<img src="https://example.org/image.png" width="10px" height="20px">`
-	expected := `<img src="https://example.org/image.png" loading="lazy">`
+	expected := `<img src="https://example.org/image.png" loading="eager">`
 	output := Sanitize("http://example.org/", input)
 
 	if output != expected {
@@ -86,7 +86,7 @@ func TestImgWithTextDataURL(t *testing.T) {
 
 func TestImgWithDataURL(t *testing.T) {
 	input := `<img src="data:image/gif;base64,test" alt="Example">`
-	expected := `<img src="data:image/gif;base64,test" alt="Example" loading="lazy">`
+	expected := `<img src="data:image/gif;base64,test" alt="Example" loading="eager">`
 	output := Sanitize("http://example.org/", input)
 
 	if output != expected {
@@ -96,7 +96,7 @@ func TestImgWithDataURL(t *testing.T) {
 
 func TestImgWithSrcset(t *testing.T) {
 	input := `<img srcset="example-320w.jpg, example-480w.jpg 1.5x,   example-640w.jpg 2x, example-640w.jpg 640w" src="example-640w.jpg" alt="Example">`
-	expected := `<img srcset="http://example.org/example-320w.jpg, http://example.org/example-480w.jpg 1.5x, http://example.org/example-640w.jpg 2x, http://example.org/example-640w.jpg 640w" src="http://example.org/example-640w.jpg" alt="Example" loading="lazy">`
+	expected := `<img srcset="http://example.org/example-320w.jpg, http://example.org/example-480w.jpg 1.5x, http://example.org/example-640w.jpg 2x, http://example.org/example-640w.jpg 640w" src="http://example.org/example-640w.jpg" alt="Example" loading="eager">`
 	output := Sanitize("http://example.org/", input)
 
 	if output != expected {
@@ -116,7 +116,7 @@ func TestSourceWithSrcsetAndMedia(t *testing.T) {
 
 func TestMediumImgWithSrcset(t *testing.T) {
 	input := `<img alt="Image for post" class="t u v ef aj" src="https://miro.medium.com/max/5460/1*aJ9JibWDqO81qMfNtqgqrw.jpeg" srcset="https://miro.medium.com/max/552/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 276w, https://miro.medium.com/max/1000/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 500w" sizes="500px" width="2730" height="3407">`
-	expected := `<img alt="Image for post" src="https://miro.medium.com/max/5460/1*aJ9JibWDqO81qMfNtqgqrw.jpeg" srcset="https://miro.medium.com/max/552/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 276w, https://miro.medium.com/max/1000/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 500w" sizes="500px" loading="lazy">`
+	expected := `<img alt="Image for post" src="https://miro.medium.com/max/5460/1*aJ9JibWDqO81qMfNtqgqrw.jpeg" srcset="https://miro.medium.com/max/552/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 276w, https://miro.medium.com/max/1000/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 500w" sizes="500px" loading="eager">`
 	output := Sanitize("http://example.org/", input)
 
 	if output != expected {
@@ -125,7 +125,7 @@ func TestMediumImgWithSrcset(t *testing.T) {
 }
 
 func TestSelfClosingTags(t *testing.T) {
-	input := `<p>This <br> is a <strong>text</strong> <br/>with an image: <img src="http://example.org/" alt="Test" loading="lazy"/>.</p>`
+	input := `<p>This <br> is a <strong>text</strong> <br/>with an image: <img src="http://example.org/" alt="Test" loading="eager"/>.</p>`
 	output := Sanitize("http://example.org/", input)
 
 	if input != output {
@@ -144,7 +144,7 @@ func TestTable(t *testing.T) {
 
 func TestRelativeURL(t *testing.T) {
 	input := `This <a href="/test.html">link is relative</a> and this image: <img src="../folder/image.png"/>`
-	expected := `This <a href="http://example.org/test.html" rel="noopener noreferrer" target="_blank" referrerpolicy="no-referrer">link is relative</a> and this image: <img src="http://example.org/folder/image.png" loading="lazy"/>`
+	expected := `This <a href="http://example.org/test.html" rel="noopener noreferrer" target="_blank" referrerpolicy="no-referrer">link is relative</a> and this image: <img src="http://example.org/folder/image.png" loading="eager"/>`
 	output := Sanitize("http://example.org/", input)
 
 	if expected != output {
@@ -224,7 +224,7 @@ func TestInvalidIFrame(t *testing.T) {
 
 func TestIFrameWithChildElements(t *testing.T) {
 	input := `<iframe src="https://www.youtube.com/"><p>test</p></iframe>`
-	expected := `<iframe src="https://www.youtube.com/" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy"></iframe>`
+	expected := `<iframe src="https://www.youtube.com/" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager"></iframe>`
 	output := Sanitize("http://example.com/", input)
 
 	if expected != output {
@@ -502,7 +502,7 @@ func TestLinkWithTrackers(t *testing.T) {
 
 func TestImageSrcWithTrackers(t *testing.T) {
 	input := `<p>This image has trackers <img src="https://example.org/?id=123&utm_source=newsletter&utm_medium=email&fbclid=abc123"></p>`
-	expected := `<p>This image has trackers <img src="https://example.org/?id=123" loading="lazy"></p>`
+	expected := `<p>This image has trackers <img src="https://example.org/?id=123" loading="eager"></p>`
 	output := Sanitize("http://example.org/", input)
 
 	if expected != output {
@@ -542,7 +542,7 @@ func TestEspaceAttributes(t *testing.T) {
 
 func TestReplaceIframeURL(t *testing.T) {
 	input := `<iframe src="https://player.vimeo.com/video/123456?title=0&amp;byline=0"></iframe>`
-	expected := `<iframe src="https://player.vimeo.com/video/123456?title=0&amp;byline=0" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy"></iframe>`
+	expected := `<iframe src="https://player.vimeo.com/video/123456?title=0&amp;byline=0" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager"></iframe>`
 	output := Sanitize("http://example.org/", input)
 
 	if expected != output {
@@ -551,7 +551,7 @@ func TestReplaceIframeURL(t *testing.T) {
 }
 
 func TestReplaceNoScript(t *testing.T) {
-	input := `<p>Before paragraph.</p><noscript>Inside <code>noscript</code> tag with an image: <img src="http://example.org/" alt="Test" loading="lazy"></noscript><p>After paragraph.</p>`
+	input := `<p>Before paragraph.</p><noscript>Inside <code>noscript</code> tag with an image: <img src="http://example.org/" alt="Test" loading="eager"></noscript><p>After paragraph.</p>`
 	expected := `<p>Before paragraph.</p><p>After paragraph.</p>`
 	output := Sanitize("http://example.org/", input)
 

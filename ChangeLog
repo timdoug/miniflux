@@ -1322,7 +1322,7 @@ Version 2.0.18 (Sep 25, 2019)
     - CLEANUP_FREQUENCY_HOURS instead of CLEANUP_FREQUENCY
     - CLEANUP_ARCHIVE_READ_DAYS instead of ARCHIVE_READ_DAYS
 * Make configurable the number of days to remove old sessions
-* Add native lazy loading for images and iframes
+* Add native eager loading for images and iframes
 * Do not buffer responses in the image proxy
 * Update dependencies
 * Add Go 1.13 to test matrix

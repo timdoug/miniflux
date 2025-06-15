@@ -51,21 +51,6 @@ var knownRules = map[string]ruleSpec{
 	"add_dynamic_iframe": {apply: func(_ string, entry *model.Entry, _ []string) {
 		entry.Content = addDynamicIframe(entry.Content)
 	}},
-	"add_youtube_video": {apply: func(entryURL string, entry *model.Entry, _ []string) {
-		entry.Content = addYoutubeVideoRewriteRule(entryURL, entry.Content)
-	}},
-	"add_invidious_video": {apply: func(entryURL string, entry *model.Entry, _ []string) {
-		entry.Content = addInvidiousVideo(entryURL, entry.Content)
-	}},
-	"add_youtube_video_using_invidious_player": {apply: func(entryURL string, entry *model.Entry, _ []string) {
-		entry.Content = addYoutubeVideoUsingInvidiousPlayer(entryURL, entry.Content)
-	}},
-	"add_youtube_video_from_id": {apply: func(_ string, entry *model.Entry, _ []string) {
-		entry.Content = addYoutubeVideoFromId(entry.Content)
-	}},
-	"add_pdf_download_link": {apply: func(entryURL string, entry *model.Entry, _ []string) {
-		entry.Content = addPDFLink(entryURL, entry.Content)
-	}},
 	"nl2br": {apply: func(_ string, entry *model.Entry, _ []string) {
 		entry.Content = strings.ReplaceAll(entry.Content, "\n", "<br>")
 	}},
@@ -157,7 +142,6 @@ func ApplyContentRewriteRules(entry *model.Entry, customRewriteRules string) {
 			slog.String("detail", e.Message),
 		)
 	}
-	rules = append(rules, rule{name: "add_pdf_download_link"})
 
 	slog.Debug("Rewrite rules applied",
 		slog.Any("rules", rules),

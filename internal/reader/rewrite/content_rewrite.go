@@ -104,7 +104,6 @@ func ApplyContentRewriteRules(entry *model.Entry, customRewriteRules string) {
 	}
 
 	rules := parseRules(rulesList)
-	rules = append(rules, rule{name: "add_pdf_download_link"})
 
 	slog.Debug("Rewrite rules applied",
 		slog.Any("rules", rules),

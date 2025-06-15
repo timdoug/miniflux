@@ -14,15 +14,12 @@ import (
 	"strings"
 	"unicode"
 
-	"miniflux.app/v2/internal/config"
-
 	nethtml "golang.org/x/net/html"
 
 	"github.com/PuerkitoBio/goquery"
 )
 
 var (
-	youtubeIdRegex = regexp.MustCompile(`youtube_id"?\s*[:=]\s*"([a-zA-Z0-9_-]{11})"`)
 	textLinkRegex  = regexp.MustCompile(`(?mi)(\bhttps?:\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])`)
 )
 
@@ -256,105 +253,6 @@ func useNoScriptImages(entryContent string) string {
 
 	output, _ := doc.FindMatcher(goquery.Single("body")).Html()
 	return output
-}
-
-func getYoutubVideoIDFromURL(entryURL string) string {
-	u, err := url.Parse(entryURL)
-	if err != nil {
-		return ""
-	}
-
-	if !strings.HasSuffix(u.Hostname(), "youtube.com") {
-		return ""
-	}
-
-	if u.Path == "/watch" {
-		if v := u.Query().Get("v"); v != "" {
-			return v
-		}
-		return ""
-	}
-
-	if id, found := strings.CutPrefix(u.Path, "/shorts/"); found {
-		if len(id) == 11 {
-			// youtube shorts id are always 11 chars.
-			return id
-		}
-	}
-
-	return ""
-}
-
-func buildVideoPlayerIframe(absoluteVideoURL string) string {
-	// Note: the referrerpolicy seems to be required to avoid YouTube error 153 video player configuration error
-	// See https://developers.google.com/youtube/terms/required-minimum-functionality#embedded-player-api-client-identity
-	return `<iframe width="650" height="350" frameborder="0" src="` + absoluteVideoURL + `" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`
-}
-
-func addVideoPlayerIframe(absoluteVideoURL, entryContent string) string {
-	return buildVideoPlayerIframe(absoluteVideoURL) + `<br>` + entryContent
-}
-
-func addYoutubeVideoRewriteRule(entryURL, entryContent string) string {
-	if videoURL := getYoutubVideoIDFromURL(entryURL); videoURL != "" {
-		return addVideoPlayerIframe(config.Opts.YouTubeEmbedUrlOverride()+videoURL, entryContent)
-	}
-	return entryContent
-}
-
-func addYoutubeVideoUsingInvidiousPlayer(entryURL, entryContent string) string {
-	if videoURL := getYoutubVideoIDFromURL(entryURL); videoURL != "" {
-		return addVideoPlayerIframe(`https://`+config.Opts.InvidiousInstance()+`/embed/`+videoURL, entryContent)
-	}
-	return entryContent
-}
-
-// For reference: https://github.com/miniflux/v2/pull/1314
-func addYoutubeVideoFromId(entryContent string) string {
-	matches := youtubeIdRegex.FindAllStringSubmatch(entryContent, -1)
-	if matches == nil {
-		return entryContent
-	}
-	var videoPlayerHTML strings.Builder
-	for _, match := range matches {
-		if len(match) == 2 {
-			videoPlayerHTML.WriteString(buildVideoPlayerIframe(config.Opts.YouTubeEmbedUrlOverride() + match[1]))
-			videoPlayerHTML.WriteString("<br>")
-		}
-	}
-	return videoPlayerHTML.String() + entryContent
-}
-
-func addInvidiousVideo(entryURL, entryContent string) string {
-	u, err := url.Parse(entryURL)
-	if err != nil {
-		return entryContent
-	}
-
-	if u.Path != "/watch" {
-		return entryContent
-	}
-
-	qs := u.Query()
-	videoID := qs.Get("v")
-	if videoID == "" {
-		return entryContent
-	}
-	qs.Del("v")
-
-	embedVideoURL := "https://" + u.Hostname() + `/embed/` + videoID
-	if len(qs) > 0 {
-		embedVideoURL += "?" + qs.Encode()
-	}
-
-	return addVideoPlayerIframe(embedVideoURL, entryContent)
-}
-
-func addPDFLink(entryURL, entryContent string) string {
-	if strings.HasSuffix(entryURL, ".pdf") {
-		return fmt.Sprintf(`<a href=%q>PDF</a><br>%s`, entryURL, entryContent)
-	}
-	return entryContent
 }
 
 func replaceTextLinks(input string) string {

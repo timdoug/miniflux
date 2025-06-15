@@ -607,7 +607,7 @@ func sanitizeAttributes(parsedBaseUrl *url.URL, tagName string, attributes []htm
 		case "video", "audio":
 			htmlAttrs = append(htmlAttrs, "controls")
 		case "iframe":
-			htmlAttrs = append(htmlAttrs, `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`, `loading="lazy"`)
+			htmlAttrs = append(htmlAttrs, `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`, `loading="eager"`)
 
 			// Note: the referrerpolicy seems to be required to avoid YouTube error 153 video player configuration error
 			// See https://developers.google.com/youtube/terms/required-minimum-functionality#embedded-player-api-client-identity
@@ -616,7 +616,7 @@ func sanitizeAttributes(parsedBaseUrl *url.URL, tagName string, attributes []htm
 			}
 
 		case "img":
-			htmlAttrs = append(htmlAttrs, `loading="lazy"`)
+			htmlAttrs = append(htmlAttrs, `loading="eager"`)
 		}
 	}
 

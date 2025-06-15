@@ -61,7 +61,7 @@ func FuzzSanitizer(f *testing.F) {
 }
 
 func TestValidInput(t *testing.T) {
-	input := `<p>This is a <strong>text</strong> with an image: <img src="http://example.org/" alt="Test" loading="lazy">.</p>`
+	input := `<p>This is a <strong>text</strong> with an image: <img src="http://example.org/" alt="Test" loading="eager">.</p>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if input != output {
@@ -79,37 +79,37 @@ func TestImgSanitization(t *testing.T) {
 		{
 			name:     "width-and-height-attributes",
 			input:    `<img src="https://example.org/image.png" width="10" height="20">`,
-			expected: `<img src="https://example.org/image.png" width="10" height="20" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" width="10" height="20" loading="eager">`,
 		},
 		{
 			name:     "invalid-width-and-height-attributes",
 			input:    `<img src="https://example.org/image.png" width="10px" height="20px">`,
-			expected: `<img src="https://example.org/image.png" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" loading="eager">`,
 		},
 		{
 			name:     "invalid-width-attribute",
 			input:    `<img src="https://example.org/image.png" width="10px" height="20">`,
-			expected: `<img src="https://example.org/image.png" height="20" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" height="20" loading="eager">`,
 		},
 		{
 			name:     "empty-width-and-height-attributes",
 			input:    `<img src="https://example.org/image.png" width="" height="">`,
-			expected: `<img src="https://example.org/image.png" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" loading="eager">`,
 		},
 		{
 			name:     "invalid-height-attribute",
 			input:    `<img src="https://example.org/image.png" width="10" height="20px">`,
-			expected: `<img src="https://example.org/image.png" width="10" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" width="10" loading="eager">`,
 		},
 		{
 			name:     "negative-width-attribute",
 			input:    `<img src="https://example.org/image.png" width="-10" height="20">`,
-			expected: `<img src="https://example.org/image.png" height="20" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" height="20" loading="eager">`,
 		},
 		{
 			name:     "negative-height-attribute",
 			input:    `<img src="https://example.org/image.png" width="10" height="-20">`,
-			expected: `<img src="https://example.org/image.png" width="10" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" width="10" loading="eager">`,
 		},
 		{
 			name:     "text-data-url",
@@ -119,22 +119,22 @@ func TestImgSanitization(t *testing.T) {
 		{
 			name:     "image-data-url",
 			input:    `<img src="data:image/gif;base64,test" alt="Example">`,
-			expected: `<img src="data:image/gif;base64,test" alt="Example" loading="lazy">`,
+			expected: `<img src="data:image/gif;base64,test" alt="Example" loading="eager">`,
 		},
 		{
 			name:     "srcset-attribute",
 			input:    `<img srcset="example-320w.jpg, example-480w.jpg 1.5x,   example-640w.jpg 2x, example-640w.jpg 640w" src="example-640w.jpg" alt="Example">`,
-			expected: `<img srcset="http://example.org/example-320w.jpg, http://example.org/example-480w.jpg 1.5x, http://example.org/example-640w.jpg 2x, http://example.org/example-640w.jpg 640w" src="http://example.org/example-640w.jpg" alt="Example" loading="lazy">`,
+			expected: `<img srcset="http://example.org/example-320w.jpg, http://example.org/example-480w.jpg 1.5x, http://example.org/example-640w.jpg 2x, http://example.org/example-640w.jpg 640w" src="http://example.org/example-640w.jpg" alt="Example" loading="eager">`,
 		},
 		{
 			name:     "srcset-attribute-without-src",
 			input:    `<img srcset="example-320w.jpg, example-480w.jpg 1.5x,   example-640w.jpg 2x, example-640w.jpg 640w" alt="Example">`,
-			expected: `<img srcset="http://example.org/example-320w.jpg, http://example.org/example-480w.jpg 1.5x, http://example.org/example-640w.jpg 2x, http://example.org/example-640w.jpg 640w" alt="Example" loading="lazy">`,
+			expected: `<img srcset="http://example.org/example-320w.jpg, http://example.org/example-480w.jpg 1.5x, http://example.org/example-640w.jpg 2x, http://example.org/example-640w.jpg 640w" alt="Example" loading="eager">`,
 		},
 		{
 			name:     "srcset-attribute-with-blocked-candidate",
 			input:    `<img srcset="https://stats.wordpress.com/tracker.png 1x, /example-640w.jpg 2x" src="/example-640w.jpg" alt="Example">`,
-			expected: `<img srcset="http://example.org/example-640w.jpg 2x" src="http://example.org/example-640w.jpg" alt="Example" loading="lazy">`,
+			expected: `<img srcset="http://example.org/example-640w.jpg 2x" src="http://example.org/example-640w.jpg" alt="Example" loading="eager">`,
 		},
 		{
 			name:     "srcset-attribute-all-candidates-invalid",
@@ -144,42 +144,42 @@ func TestImgSanitization(t *testing.T) {
 		{
 			name:     "fetchpriority-high",
 			input:    `<img src="https://example.org/image.png" fetchpriority="high">`,
-			expected: `<img src="https://example.org/image.png" fetchpriority="high" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" fetchpriority="high" loading="eager">`,
 		},
 		{
 			name:     "fetchpriority-low",
 			input:    `<img src="https://example.org/image.png" fetchpriority="low">`,
-			expected: `<img src="https://example.org/image.png" fetchpriority="low" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" fetchpriority="low" loading="eager">`,
 		},
 		{
 			name:     "fetchpriority-auto",
 			input:    `<img src="https://example.org/image.png" fetchpriority="auto">`,
-			expected: `<img src="https://example.org/image.png" fetchpriority="auto" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" fetchpriority="auto" loading="eager">`,
 		},
 		{
 			name:     "fetchpriority-invalid",
 			input:    `<img src="https://example.org/image.png" fetchpriority="invalid">`,
-			expected: `<img src="https://example.org/image.png" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" loading="eager">`,
 		},
 		{
 			name:     "decoding-sync",
 			input:    `<img src="https://example.org/image.png" decoding="sync">`,
-			expected: `<img src="https://example.org/image.png" decoding="sync" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" decoding="sync" loading="eager">`,
 		},
 		{
 			name:     "decoding-async",
 			input:    `<img src="https://example.org/image.png" decoding="async">`,
-			expected: `<img src="https://example.org/image.png" decoding="async" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" decoding="async" loading="eager">`,
 		},
 		{
 			name:     "decoding-auto",
 			input:    `<img src="https://example.org/image.png" decoding="auto">`,
-			expected: `<img src="https://example.org/image.png" decoding="auto" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" decoding="auto" loading="eager">`,
 		},
 		{
 			name:     "decoding-invalid",
 			input:    `<img src="https://example.org/image.png" decoding="invalid">`,
-			expected: `<img src="https://example.org/image.png" loading="lazy">`,
+			expected: `<img src="https://example.org/image.png" loading="eager">`,
 		},
 	}
 
@@ -215,7 +215,7 @@ func TestNonImgWithDecodingAttribute(t *testing.T) {
 
 func TestMediumImgWithSrcset(t *testing.T) {
 	input := `<img alt="Image for post" class="t u v ef aj" src="https://miro.medium.com/max/5460/1*aJ9JibWDqO81qMfNtqgqrw.jpeg" srcset="https://miro.medium.com/max/552/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 276w, https://miro.medium.com/max/1000/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 500w" sizes="500px" width="2730" height="3407">`
-	expected := `<img alt="Image for post" src="https://miro.medium.com/max/5460/1*aJ9JibWDqO81qMfNtqgqrw.jpeg" srcset="https://miro.medium.com/max/552/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 276w, https://miro.medium.com/max/1000/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 500w" sizes="500px" width="2730" height="3407" loading="lazy">`
+	expected := `<img alt="Image for post" src="https://miro.medium.com/max/5460/1*aJ9JibWDqO81qMfNtqgqrw.jpeg" srcset="https://miro.medium.com/max/552/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 276w, https://miro.medium.com/max/1000/1*aJ9JibWDqO81qMfNtqgqrw.jpeg 500w" sizes="500px" width="2730" height="3407" loading="eager">`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if output != expected {
@@ -243,7 +243,7 @@ func TestSelfClosingTags(t *testing.T) {
 		{
 			name:     "img",
 			input:    `<p>Image <img src="http://example.org/image.png" alt="Test"></p>`,
-			expected: `<p>Image <img src="http://example.org/image.png" alt="Test" loading="lazy"></p>`,
+			expected: `<p>Image <img src="http://example.org/image.png" alt="Test" loading="eager"></p>`,
 		},
 		{
 			name:     "source",
@@ -278,7 +278,7 @@ func TestTable(t *testing.T) {
 
 func TestRelativeURL(t *testing.T) {
 	input := `This <a href="/test.html">link is relative</a> and this image: <img src="../folder/image.png">`
-	expected := `This <a href="http://example.org/test.html" rel="noopener noreferrer" referrerpolicy="no-referrer" target="_blank">link is relative</a> and this image: <img src="http://example.org/folder/image.png" loading="lazy">`
+	expected := `This <a href="http://example.org/test.html" rel="noopener noreferrer" referrerpolicy="no-referrer" target="_blank">link is relative</a> and this image: <img src="http://example.org/folder/image.png" loading="eager">`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -413,7 +413,7 @@ func TestInvidiousIFrame(t *testing.T) {
 	config.Opts = config.NewConfigOptions()
 
 	input := `<iframe src="https://yewtu.be/watch?v=video_id"></iframe>`
-	expected := `<iframe src="https://yewtu.be/watch?v=video_id" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy"></iframe>`
+	expected := `<iframe src="https://yewtu.be/watch?v=video_id" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.com/", input)
 
 	if expected != output {
@@ -431,7 +431,7 @@ func TestCustomYoutubeEmbedURL(t *testing.T) {
 	}
 
 	input := `<iframe src="https://www.invidious.custom/embed/1234"></iframe>`
-	expected := `<iframe src="https://www.invidious.custom/embed/1234" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy"></iframe>`
+	expected := `<iframe src="https://www.invidious.custom/embed/1234" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.com/", input)
 
 	if expected != output {
@@ -443,7 +443,7 @@ func TestIFrameWithChildElements(t *testing.T) {
 	config.Opts = config.NewConfigOptions()
 
 	input := `<iframe src="https://www.youtube.com/"><p>test</p></iframe>`
-	expected := `<iframe src="https://www.youtube.com/" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+	expected := `<iframe src="https://www.youtube.com/" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.com/", input)
 
 	if expected != output {
@@ -455,7 +455,7 @@ func TestIFrameWithReferrerPolicy(t *testing.T) {
 	config.Opts = config.NewConfigOptions()
 
 	input := `<iframe src="https://www.youtube.com/embed/test123" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
-	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.com/", input)
 
 	if expected != output {
@@ -664,7 +664,7 @@ func TestLinkWithTrackers(t *testing.T) {
 
 func TestImageSrcWithTrackers(t *testing.T) {
 	input := `<p>This image has trackers <img src="https://example.org/?id=123&utm_source=newsletter&utm_medium=email&fbclid=abc123"></p>`
-	expected := `<p>This image has trackers <img src="https://example.org/?id=123" loading="lazy"></p>`
+	expected := `<p>This image has trackers <img src="https://example.org/?id=123" loading="eager"></p>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -722,7 +722,7 @@ func TestReplaceYoutubeURL(t *testing.T) {
 	}
 
 	input := `<iframe src="http://www.youtube.com/embed/test123?version=3&#038;rel=1&#038;fs=1&#038;autohide=2&#038;showsearch=0&#038;showinfo=1&#038;iv_load_policy=1&#038;wmode=transparent"></iframe>`
-	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123?version=3&amp;rel=1&amp;fs=1&amp;autohide=2&amp;showsearch=0&amp;showinfo=1&amp;iv_load_policy=1&amp;wmode=transparent" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123?version=3&amp;rel=1&amp;fs=1&amp;autohide=2&amp;showsearch=0&amp;showinfo=1&amp;iv_load_policy=1&amp;wmode=transparent" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -740,7 +740,7 @@ func TestReplaceSecureYoutubeURL(t *testing.T) {
 	}
 
 	input := `<iframe src="https://www.youtube.com/embed/test123"></iframe>`
-	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -758,7 +758,7 @@ func TestReplaceSecureYoutubeURLWithParameters(t *testing.T) {
 	}
 
 	input := `<iframe src="https://www.youtube.com/embed/test123?rel=0&amp;controls=0"></iframe>`
-	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123?rel=0&amp;controls=0" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123?rel=0&amp;controls=0" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -776,7 +776,7 @@ func TestReplaceYoutubeURLAlreadyReplaced(t *testing.T) {
 	}
 
 	input := `<iframe src="https://www.youtube-nocookie.com/embed/test123?rel=0&amp;controls=0" sandbox="allow-scripts allow-same-origin"></iframe>`
-	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123?rel=0&amp;controls=0" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+	expected := `<iframe src="https://www.youtube-nocookie.com/embed/test123?rel=0&amp;controls=0" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -794,7 +794,7 @@ func TestReplaceProtocolRelativeYoutubeURL(t *testing.T) {
 	}
 
 	input := `<iframe src="//www.youtube.com/embed/Bf2W84jrGqs" width="560" height="314" allowfullscreen="allowfullscreen"></iframe>`
-	expected := `<iframe src="https://www.youtube-nocookie.com/embed/Bf2W84jrGqs" width="560" height="314" allowfullscreen="allowfullscreen" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+	expected := `<iframe src="https://www.youtube-nocookie.com/embed/Bf2W84jrGqs" width="560" height="314" allowfullscreen="allowfullscreen" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -813,7 +813,7 @@ func TestReplaceYoutubeURLWithCustomURL(t *testing.T) {
 	}
 
 	input := `<iframe src="https://www.youtube.com/embed/test123?version=3&#038;rel=1&#038;fs=1&#038;autohide=2&#038;showsearch=0&#038;showinfo=1&#038;iv_load_policy=1&#038;wmode=transparent"></iframe>`
-	expected := `<iframe src="https://invidious.custom/embed/test123?version=3&amp;rel=1&amp;fs=1&amp;autohide=2&amp;showsearch=0&amp;showinfo=1&amp;iv_load_policy=1&amp;wmode=transparent" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
+	expected := `<iframe src="https://invidious.custom/embed/test123?version=3&amp;rel=1&amp;fs=1&amp;autohide=2&amp;showsearch=0&amp;showinfo=1&amp;iv_load_policy=1&amp;wmode=transparent" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager" referrerpolicy="strict-origin-when-cross-origin"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -823,7 +823,7 @@ func TestReplaceYoutubeURLWithCustomURL(t *testing.T) {
 
 func TestVimeoIframeRewriteWithQueryString(t *testing.T) {
 	input := `<iframe src="https://player.vimeo.com/video/123456?title=0&amp;byline=0"></iframe>`
-	expected := `<iframe src="https://player.vimeo.com/video/123456?title=0&amp;byline=0&amp;dnt=1" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy"></iframe>`
+	expected := `<iframe src="https://player.vimeo.com/video/123456?title=0&amp;byline=0&amp;dnt=1" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -833,7 +833,7 @@ func TestVimeoIframeRewriteWithQueryString(t *testing.T) {
 
 func TestVimeoIframeRewriteWithoutQueryString(t *testing.T) {
 	input := `<iframe src="https://player.vimeo.com/video/123456"></iframe>`
-	expected := `<iframe src="https://player.vimeo.com/video/123456?dnt=1" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="lazy"></iframe>`
+	expected := `<iframe src="https://player.vimeo.com/video/123456?dnt=1" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" loading="eager"></iframe>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 
 	if expected != output {
@@ -842,7 +842,7 @@ func TestVimeoIframeRewriteWithoutQueryString(t *testing.T) {
 }
 
 func TestReplaceNoScript(t *testing.T) {
-	input := `<p>Before paragraph.</p><noscript>Inside <code>noscript</code> tag with an image: <img src="http://example.org/" alt="Test" loading="lazy"></noscript><p>After paragraph.</p>`
+	input := `<p>Before paragraph.</p><noscript>Inside <code>noscript</code> tag with an image: <img src="http://example.org/" alt="Test" loading="eager"></noscript><p>After paragraph.</p>`
 	expected := `<p>Before paragraph.</p><p>After paragraph.</p>`
 	output := sanitizeHTMLWithDefaultOptions("http://example.org/", input)
 

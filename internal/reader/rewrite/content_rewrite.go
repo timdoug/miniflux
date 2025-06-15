@@ -28,16 +28,6 @@ func (rule rule) applyRule(entryURL string, entry *model.Entry) {
 		entry.Content = addDynamicImage(entry.Content)
 	case "add_dynamic_iframe":
 		entry.Content = addDynamicIframe(entry.Content)
-	case "add_youtube_video":
-		entry.Content = addYoutubeVideoRewriteRule(entryURL, entry.Content)
-	case "add_invidious_video":
-		entry.Content = addInvidiousVideo(entryURL, entry.Content)
-	case "add_youtube_video_using_invidious_player":
-		entry.Content = addYoutubeVideoUsingInvidiousPlayer(entryURL, entry.Content)
-	case "add_youtube_video_from_id":
-		entry.Content = addYoutubeVideoFromId(entry.Content)
-	case "add_pdf_download_link":
-		entry.Content = addPDFLink(entryURL, entry.Content)
 	case "nl2br":
 		entry.Content = strings.ReplaceAll(entry.Content, "\n", "<br>")
 	case "convert_text_link", "convert_text_links":
@@ -106,7 +96,6 @@ func ApplyContentRewriteRules(entry *model.Entry, customRewriteRules string) {
 	}
 
 	rules := parseRules(rulesList)
-	rules = append(rules, rule{name: "add_pdf_download_link"})
 
 	slog.Debug("Rewrite rules applied",
 		slog.Any("rules", rules),

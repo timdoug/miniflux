@@ -139,7 +139,7 @@
         <div class="entry-meta" dir="auto">
             <span class="entry-website">
                 {{ if ne .entry.Feed.Icon.IconID 0 }}
-                <img src="{{ route "feedIcon" "externalIconID" .entry.Feed.Icon.ExternalIconID }}" width="16" height="16" loading="lazy" alt="{{ .entry.Feed.Title }}">
+                <img src="{{ route "feedIcon" "externalIconID" .entry.Feed.Icon.ExternalIconID }}" width="16" height="16" loading="eager" alt="{{ .entry.Feed.Title }}">
                 {{ end }}
                 {{ if .user }}
                 <a href="{{ route "feedEntries" "feedID" .entry.Feed.ID }}">{{ .entry.Feed.Title }}</a>
@@ -294,9 +294,9 @@
         {{ if .IsImage }}
         <div class="enclosure-image">
             {{ if (and $.user (mustBeProxyfied "image")) }}
-            <img src="{{ proxyURL .URL }}" title="{{ .URL }} ({{ .MimeType }})" loading="lazy" alt="{{ .URL }} ({{ .MimeType }})">
+            <img src="{{ proxyURL .URL }}" title="{{ .URL }} ({{ .MimeType }})" loading="eager" alt="{{ .URL }} ({{ .MimeType }})">
             {{ else }}
-            <img src="{{ .URL | safeURL }}" title="{{ .URL }} ({{ .MimeType }})" loading="lazy" alt="{{ .URL }} ({{ .MimeType }})">
+            <img src="{{ .URL | safeURL }}" title="{{ .URL }} ({{ .MimeType }})" loading="eager" alt="{{ .URL }} ({{ .MimeType }})">
             {{ end }}
         </div>
         {{ end }}

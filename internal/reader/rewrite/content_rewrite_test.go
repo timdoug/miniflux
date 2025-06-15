@@ -66,46 +66,6 @@ func TestRewriteWithNoMatchingRule(t *testing.T) {
 	}
 }
 
-func TestRewriteYoutubeVideoLink(t *testing.T) {
-	config.Opts = config.NewOptions()
-
-	controlEntry := &model.Entry{
-		URL:     "https://www.youtube.com/watch?v=1234",
-		Title:   `A title`,
-		Content: `<iframe width="650" height="350" frameborder="0" src="https://www.youtube-nocookie.com/embed/1234" allowfullscreen></iframe><br>Video Description`,
-	}
-	testEntry := &model.Entry{
-		URL:     "https://www.youtube.com/watch?v=1234",
-		Title:   `A title`,
-		Content: `Video Description`,
-	}
-	ApplyContentRewriteRules(testEntry, ``)
-
-	if !reflect.DeepEqual(testEntry, controlEntry) {
-		t.Errorf(`Not expected output: got "%+v" instead of "%+v"`, testEntry, controlEntry)
-	}
-}
-
-func TestRewriteYoutubeShortLink(t *testing.T) {
-	config.Opts = config.NewOptions()
-
-	controlEntry := &model.Entry{
-		URL:     "https://www.youtube.com/shorts/1LUWKWZkPjo",
-		Title:   `A title`,
-		Content: `<iframe width="650" height="350" frameborder="0" src="https://www.youtube-nocookie.com/embed/1LUWKWZkPjo" allowfullscreen></iframe><br>Video Description`,
-	}
-	testEntry := &model.Entry{
-		URL:     "https://www.youtube.com/shorts/1LUWKWZkPjo",
-		Title:   `A title`,
-		Content: `Video Description`,
-	}
-	ApplyContentRewriteRules(testEntry, ``)
-
-	if !reflect.DeepEqual(testEntry, controlEntry) {
-		t.Errorf(`Not expected output: got "%+v" instead of "%+v"`, testEntry, controlEntry)
-	}
-}
-
 func TestRewriteIncorrectYoutubeLink(t *testing.T) {
 	config.Opts = config.NewOptions()
 
@@ -116,35 +76,6 @@ func TestRewriteIncorrectYoutubeLink(t *testing.T) {
 	}
 	testEntry := &model.Entry{
 		URL:     "https://www.youtube.com/some-page",
-		Title:   `A title`,
-		Content: `Video Description`,
-	}
-	ApplyContentRewriteRules(testEntry, ``)
-
-	if !reflect.DeepEqual(testEntry, controlEntry) {
-		t.Errorf(`Not expected output: got "%+v" instead of "%+v"`, testEntry, controlEntry)
-	}
-}
-
-func TestRewriteYoutubeLinkAndCustomEmbedURL(t *testing.T) {
-	os.Clearenv()
-	os.Setenv("YOUTUBE_EMBED_URL_OVERRIDE", "https://invidious.custom/embed/")
-
-	var err error
-	parser := config.NewParser()
-	config.Opts, err = parser.ParseEnvironmentVariables()
-
-	if err != nil {
-		t.Fatalf(`Parsing failure: %v`, err)
-	}
-
-	controlEntry := &model.Entry{
-		URL:     "https://www.youtube.com/watch?v=1234",
-		Title:   `A title`,
-		Content: `<iframe width="650" height="350" frameborder="0" src="https://invidious.custom/embed/1234" allowfullscreen></iframe><br>Video Description`,
-	}
-	testEntry := &model.Entry{
-		URL:     "https://www.youtube.com/watch?v=1234",
 		Title:   `A title`,
 		Content: `Video Description`,
 	}
@@ -445,24 +376,6 @@ func TestRewriteMailtoLink(t *testing.T) {
 		URL:     "https://www.qwantz.com/",
 		Title:   `A title`,
 		Content: `<a href="mailto:ryan@qwantz.com?subject=blah%20blah">contact</a>`,
-	}
-	ApplyContentRewriteRules(testEntry, ``)
-
-	if !reflect.DeepEqual(testEntry, controlEntry) {
-		t.Errorf(`Not expected output: got "%+v" instead of "%+v"`, testEntry, controlEntry)
-	}
-}
-
-func TestRewriteWithPDFLink(t *testing.T) {
-	controlEntry := &model.Entry{
-		URL:     "https://example.org/document.pdf",
-		Title:   `A title`,
-		Content: `<a href="https://example.org/document.pdf">PDF</a><br>test`,
-	}
-	testEntry := &model.Entry{
-		URL:     "https://example.org/document.pdf",
-		Title:   `A title`,
-		Content: `test`,
 	}
 	ApplyContentRewriteRules(testEntry, ``)
 

@@ -32,5 +32,4 @@ var predefinedRules = map[string]string{
 	"theverge.com":           `add_dynamic_image, remove("div.duet--recirculation--related-list, .hidden")`,
 	"treelobsters.com":       "add_image_title",
 	"xkcd.com":               "add_image_title",
-	"youtube.com":            "add_youtube_video",
 }

@@ -30,7 +30,7 @@ var predefinedRules = map[string]string{
 	"optipess.com":           "add_image_title",
 	"peebleslab.com":         "add_image_title",
 	"phoronix.com":           `remove("img[src^='/assets/categories/']")`,
-	"quantamagazine.org":     `add_youtube_video_from_id, remove("h6:not(.byline,.post__title__kicker), #comments, .next-post__content, .footer__section, figure .outer--content, script")`,
+	"quantamagazine.org":     `remove("h6:not(.byline,.post__title__kicker), #comments, .next-post__content, .footer__section, figure .outer--content, script")`,
 	"qwantz.com":             "add_image_title,add_mailto_subject",
 	"sentfromthemoon.com":    "add_image_title",
 	"thedoghousediaries.com": "add_image_title",
@@ -38,5 +38,4 @@ var predefinedRules = map[string]string{
 	"treelobsters.com":       "add_image_title",
 	"vnexpress.net":          `add_dynamic_image, remove("h1.title-detail, .box-tinlienquanv2, .thumb-above-video, .parser_title, table[border=\"0\"], p.Normal:has(strong:only-child a), ul.link_content.ul-temp, ul.list-news, div.box-wg-guicauhoi")`,
 	"xkcd.com":               "add_image_title",
-	"youtube.com":            "add_youtube_video",
 }

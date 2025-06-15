@@ -434,11 +434,11 @@ func getExtraAttributes(tagName string, isYouTubeEmbed bool, sanitizerOptions *S
 		}
 
 		extraAttrNames = append(extraAttrNames, "sandbox", "loading")
-		extraHTMLAttributes = append(extraHTMLAttributes, `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`, `loading="lazy"`)
+		extraHTMLAttributes = append(extraHTMLAttributes, `sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`, `loading="eager"`)
 
 		return extraAttrNames, extraHTMLAttributes
 	case "img":
-		return []string{"loading"}, []string{`loading="lazy"`}
+		return []string{"loading"}, []string{`loading="eager"`}
 	default:
 		return nil, nil
 	}

@@ -110,7 +110,7 @@ Features
 - Allows the use of custom <abbr title="Secure Sockets Layer">SSL</abbr> certificates.
 - Supports [HTTP/2](https://en.wikipedia.org/wiki/HTTP/2) when TLS is enabled.
 - Updates feeds in the background using an internal scheduler or a traditional cron job.
-- Uses native lazy loading for images and iframes.
+- Uses native eager loading for images and iframes.
 - Compatible only with modern browsers.
 - Adheres to the [Twelve-Factor App](https://12factor.net/) methodology.
 - Provides official Debian/RPM packages and pre-built binaries.

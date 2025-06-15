@@ -28,12 +28,11 @@ var predefinedRules = map[string]string{
 	"optipess.com":           "add_image_title",
 	"peebleslab.com":         "add_image_title",
 	"phoronix.com":           `remove("img[src^='/assets/categories/']")`,
-	"quantamagazine.org":     `add_youtube_video_from_id, remove("h6:not(.byline,.post__title__kicker), #comments, .next-post__content, .footer__section, figure .outer--content, script")`,
+	"quantamagazine.org":     `remove("h6:not(.byline,.post__title__kicker), #comments, .next-post__content, .footer__section, figure .outer--content, script")`,
 	"qwantz.com":             "add_image_title,add_mailto_subject",
 	"sentfromthemoon.com":    "add_image_title",
 	"thedoghousediaries.com": "add_image_title",
 	"theverge.com":           `add_dynamic_image, remove("div.duet--recirculation--related-list, .hidden")`,
 	"treelobsters.com":       "add_image_title",
 	"xkcd.com":               "add_image_title",
-	"youtube.com":            "add_youtube_video",
 }

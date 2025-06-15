@@ -338,7 +338,7 @@ func getExtraAttributes(tagName string, isYouTubeEmbed bool, sanitizerOptions *S
 	case "video", "audio":
 		return []string{"controls"}
 	case "iframe":
-		extraHTMLAttributes := []string{`sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`, `loading="lazy"`}
+		extraHTMLAttributes := []string{`sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"`, `loading="eager"`}
 
 		// Note: the referrerpolicy seems to be required to avoid YouTube error 153 video player configuration error
 		// See https://developers.google.com/youtube/terms/required-minimum-functionality#embedded-player-api-client-identity
@@ -348,7 +348,7 @@ func getExtraAttributes(tagName string, isYouTubeEmbed bool, sanitizerOptions *S
 
 		return extraHTMLAttributes
 	case "img":
-		return []string{`loading="lazy"`}
+		return []string{`loading="eager"`}
 	default:
 		return nil
 	}

@@ -191,7 +191,7 @@ func addDynamicIframe(entryContent string) string {
 		"data-original",
 		"data-orig",
 		"data-url",
-		"data-lazy-src",
+		"data-eager-src",
 	}
 
 	changed := false

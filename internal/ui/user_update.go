@@ -46,6 +46,7 @@ func (h *handler) updateUser(w http.ResponseWriter, r *http.Request) {
 	view.Set("menu", "settings")
 	view.Set("user", loggedUser)
 	view.Set("countUnread", h.store.CountUnreadEntries(loggedUser.ID))
+	view.Set("countStarred", h.store.CountStarredEntries(loggedUser.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(loggedUser.ID))
 	view.Set("selected_user", selectedUser)
 	view.Set("form", userForm)

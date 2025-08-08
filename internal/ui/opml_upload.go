@@ -50,6 +50,7 @@ func (h *handler) uploadOPML(w http.ResponseWriter, r *http.Request) {
 	view.Set("menu", "feeds")
 	view.Set("user", user)
 	view.Set("countUnread", h.store.CountUnreadEntries(user.ID))
+	view.Set("countStarred", h.store.CountStarredEntries(user.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(user.ID))
 
 	if fileHeader.Size == 0 {
@@ -90,6 +91,7 @@ func (h *handler) fetchOPML(w http.ResponseWriter, r *http.Request) {
 	view.Set("menu", "feeds")
 	view.Set("user", user)
 	view.Set("countUnread", h.store.CountUnreadEntries(user.ID))
+	view.Set("countStarred", h.store.CountStarredEntries(user.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(user.ID))
 
 	requestBuilder := fetcher.NewRequestBuilder()

@@ -51,6 +51,7 @@ func (h *handler) bookmarklet(w http.ResponseWriter, r *http.Request) {
 	view.Set("menu", "feeds")
 	view.Set("user", user)
 	view.Set("countUnread", h.store.CountUnreadEntries(user.ID))
+	view.Set("countStarred", h.store.CountStarredEntries(user.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(user.ID))
 	view.Set("defaultUserAgent", config.Opts.HTTPClientUserAgent())
 	view.Set("hasProxyConfigured", config.Opts.HasHTTPClientProxyURLConfigured())

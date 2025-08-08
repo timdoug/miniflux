@@ -98,6 +98,7 @@ func (h *handler) showUnreadEntryPage(w http.ResponseWriter, r *http.Request) {
 
 	// Fetching the counter here avoid to be off by one.
 	view.Set("countUnread", h.store.CountUnreadEntries(user.ID))
+	view.Set("countStarred", h.store.CountStarredEntries(user.ID))
 
 	html.OK(w, r, view.Render("entry"))
 }

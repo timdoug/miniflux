@@ -87,7 +87,17 @@
                     </a>
                 </li>
                 <li {{ if eq .menu "starred" }}class="active"{{ end }} title="{{ t "tooltip.keyboard_shortcuts" "g b" }}">
-                    <a href="{{ route "starred" }}" data-page="starred">{{ icon "star" }}{{ t "menu.starred" }}</a>
+                    <a href="{{ route "starred" }}"
+                        data-page="starred"
+                        {{ if gt .countStarred 0 }}
+                        aria-label="{{ t "menu.starred" }}, {{ plural "page.starred_entry_count" .countStarred .countStarred }}"
+                        {{ end }}
+                    >
+                        {{ icon "star" }}{{ t "menu.starred" }}
+                        {{ if gt .countStarred 0 }}
+                        <span class="starred-counter-wrapper" aria-hidden="true">(<span class="starred-counter">{{ .countStarred }}</span>)</span>
+                        {{ end }}
+                    </a>
                 </li>
                 <li {{ if eq .menu "history" }}class="active"{{ end }} title="{{ t "tooltip.keyboard_shortcuts" "g h" }}">
                     <a href="{{ route "history" }}" data-page="history">{{ icon "history" }}{{ t "menu.history" }}</a>

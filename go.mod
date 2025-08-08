@@ -11,11 +11,11 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/prometheus/client_golang v1.23.0
 	github.com/tdewolff/minify/v2 v2.23.10
-	golang.org/x/crypto v0.40.0
+	golang.org/x/crypto v0.41.0
 	golang.org/x/image v0.29.0
 	golang.org/x/net v0.42.0
 	golang.org/x/oauth2 v0.30.0
-	golang.org/x/term v0.33.0
+	golang.org/x/term v0.34.0
 )
 
 require (
@@ -38,8 +38,8 @@ require (
 	github.com/prometheus/procfs v0.16.1 // indirect
 	github.com/tdewolff/parse/v2 v2.8.1 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
-	golang.org/x/sys v0.34.0 // indirect
-	golang.org/x/text v0.27.0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
+	golang.org/x/text v0.28.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 )
 

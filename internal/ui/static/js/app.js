@@ -718,6 +718,7 @@ function handleStarAction(element) {
         const newStarStatus = isStarred ? "unstar" : "star";
 
         setStarredButtonState(buttonElement, newStarStatus);
+        updateStarredCounterValue(isStarred ? -1 : 1);
 
         if (isEntryView()) {
             showToastNotification(currentState, buttonElement.dataset[isStarred ? "toastUnstar" : "toastStar"]);
@@ -882,6 +883,36 @@ function updateUnreadCounterValue(delta) {
         const oldValue = parseInt(document.title.split('(')[1], 10);
         const newValue = oldValue + delta;
         document.title = document.title.replace(/\(\d+\)/, `(${newValue})`);
+    }
+}
+
+/**
+ * Update the starred counter value.
+ *
+ * @param {number} delta - The amount to change the counter by.
+ */
+function updateStarredCounterValue(delta) {
+    document.querySelectorAll("span.starred-counter").forEach((element) => {
+        const oldValue = parseInt(element.textContent, 10);
+        element.textContent = oldValue + delta;
+    });
+
+    if (window.location.href.endsWith('/starred')) {
+        const oldValue = parseInt(document.title.split('(')[1], 10);
+        const newValue = oldValue + delta;
+        document.title = document.title.replace(/(.*?)\(\d+\)(.*?)/, `$1(${newValue})$2`);
+
+        const pageHeaderCount = document.querySelector('.page-header h1 span[aria-hidden="true"]');
+        if (pageHeaderCount) {
+            pageHeaderCount.textContent = ` (${newValue})`;
+        }
+
+        const srCount = document.getElementById('page-header-title-count');
+        if (srCount) {
+            const singularText = srCount.textContent.replace(/\d+/, '1').replace(/entries/, 'entry');
+            const pluralText = srCount.textContent.replace(/\d+/, '2').replace(/entry(?!-)/, 'entries');
+            srCount.textContent = newValue === 1 ? singularText.replace(/\d+/, newValue) : pluralText.replace(/\d+/g, newValue);
+        }
     }
 }
 

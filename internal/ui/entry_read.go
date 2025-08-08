@@ -71,6 +71,7 @@ func (h *handler) showReadEntryPage(w http.ResponseWriter, r *http.Request) {
 	view.Set("menu", "history")
 	view.Set("user", user)
 	view.Set("countUnread", h.store.CountUnreadEntries(user.ID))
+	view.Set("countStarred", h.store.CountStarredEntries(user.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(user.ID))
 	view.Set("hasSaveEntry", h.store.HasSaveEntry(user.ID))
 

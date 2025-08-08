@@ -53,6 +53,7 @@ func (h *handler) updateSettings(w http.ResponseWriter, r *http.Request) {
 	view.Set("menu", "settings")
 	view.Set("user", loggedUser)
 	view.Set("countUnread", h.store.CountUnreadEntries(loggedUser.ID))
+	view.Set("countStarred", h.store.CountStarredEntries(loggedUser.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(loggedUser.ID))
 	view.Set("default_home_pages", model.HomePages())
 	view.Set("categories_sorting_options", model.CategoriesSortingOptions())

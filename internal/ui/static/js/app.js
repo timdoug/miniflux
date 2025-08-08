@@ -711,6 +711,7 @@ function handleBookmarkAction(element) {
         const newStarStatus = isStarred ? "unstar" : "star";
 
         setBookmarkButtonState(buttonElement, newStarStatus);
+        updateStarredCounterValue(isStarred ? -1 : 1);
 
         if (isEntryView()) {
             showToastNotification(newStarStatus, buttonElement.dataset[isStarred ? "toastUnstar" : "toastStar"]);
@@ -874,6 +875,24 @@ function updateUnreadCounterValue(delta) {
     });
 
     if (window.location.href.endsWith('/unread')) {
+        const oldValue = parseInt(document.title.split('(')[1], 10);
+        const newValue = oldValue + delta;
+        document.title = document.title.replace(/(.*?)\(\d+\)(.*?)/, `$1(${newValue})$2`);
+    }
+}
+
+/**
+ * Update the starred counter value.
+ *
+ * @param {number} delta - The amount to change the counter by.
+ */
+function updateStarredCounterValue(delta) {
+    document.querySelectorAll("span.starred-counter").forEach((element) => {
+        const oldValue = parseInt(element.textContent, 10);
+        element.textContent = oldValue + delta;
+    });
+
+    if (window.location.href.endsWith('/starred')) {
         const oldValue = parseInt(document.title.split('(')[1], 10);
         const newValue = oldValue + delta;
         document.title = document.title.replace(/(.*?)\(\d+\)(.*?)/, `$1(${newValue})$2`);

@@ -62,6 +62,24 @@ func (s *Storage) CountUnreadEntries(userID int64) int {
 	return n
 }
 
+// CountStarredEntries returns the number of starred entries.
+func (s *Storage) CountStarredEntries(userID int64) int {
+	builder := s.NewEntryQueryBuilder(userID)
+	builder.WithoutStatus(model.EntryStatusRemoved)
+	builder.WithStarred(true)
+
+	n, err := builder.CountEntries()
+	if err != nil {
+		slog.Error("Unable to count starred entries",
+			slog.Int64("user_id", userID),
+			slog.Any("error", err),
+		)
+		return 0
+	}
+
+	return n
+}
+
 // NewEntryQueryBuilder returns a new EntryQueryBuilder
 func (s *Storage) NewEntryQueryBuilder(userID int64) *EntryQueryBuilder {
 	return NewEntryQueryBuilder(s, userID)

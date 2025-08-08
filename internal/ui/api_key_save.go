@@ -35,6 +35,7 @@ func (h *handler) saveAPIKey(w http.ResponseWriter, r *http.Request) {
 		view.Set("menu", "settings")
 		view.Set("user", loggedUser)
 		view.Set("countUnread", h.store.CountUnreadEntries(loggedUser.ID))
+		view.Set("countStarred", h.store.CountStarredEntries(loggedUser.ID))
 		view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(loggedUser.ID))
 		view.Set("errorMessage", validationErr.Translate(loggedUser.Language))
 		html.OK(w, r, view.Render("create_api_key"))

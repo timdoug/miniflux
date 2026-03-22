@@ -35,7 +35,7 @@
                     <h2 id="entry-title-{{ .ID }}" class="item-title">
                         <a href="{{ routePath "/search/entry/%d" .ID }}{{ queryString (dict "q" $.searchQuery "unread" $.searchUnreadOnly) }}">
                             {{ if ne .Feed.Icon.IconID 0 }}
-                            <img src="{{ routePath "/feed-icon/%s" .Feed.Icon.ExternalIconID }}" width="16" height="16" loading="lazy" alt="{{ .Feed.Title }}">
+                            <img src="{{ routePath "/feed-icon/%s" .Feed.Icon.ExternalIconID }}" width="16" height="16" loading="eager" alt="{{ .Feed.Title }}">
                             {{ else }}
                             <span class="sr-only">{{ .Feed.Title }}</span>
                             {{ end }}

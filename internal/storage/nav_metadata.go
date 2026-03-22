@@ -11,6 +11,7 @@ import (
 
 type NavMetadata struct {
 	CountUnread     int
+	CountStarred    int
 	CountErrorFeeds int
 	HasSaveEntry    bool
 }
@@ -29,6 +30,12 @@ func (s *Storage) GetNavMetadata(userID int64) (NavMetadata, error) {
 			    AND f.hide_globally IS FALSE
 			    AND c.hide_globally IS FALSE
 			) AS count_unread,
+			(SELECT count(*)
+			   FROM entries e
+			   JOIN feeds f ON f.id = e.feed_id
+			  WHERE e.user_id = $1
+			    AND e.starred IS TRUE
+			) AS count_starred,
 			(SELECT EXISTS(
 				SELECT 1
 				  FROM integrations
@@ -73,11 +80,12 @@ func (s *Storage) GetNavMetadata(userID int64) (NavMetadata, error) {
 			 `
 	}
 
-	var countUnread, countErrorFeeds int
+	var countUnread, countStarred, countErrorFeeds int
 	var hasSaveEntry bool
 
 	err := s.db.QueryRow(query, userID, config.Opts.PollingParsingErrorLimit()).Scan(
 		&countUnread,
+		&countStarred,
 		&hasSaveEntry,
 		&countErrorFeeds,
 	)
@@ -91,6 +99,7 @@ func (s *Storage) GetNavMetadata(userID int64) (NavMetadata, error) {
 
 	return NavMetadata{
 		CountUnread:     countUnread,
+		CountStarred:    countStarred,
 		CountErrorFeeds: countErrorFeeds,
 		HasSaveEntry:    hasSaveEntry,
 	}, nil

@@ -38,6 +38,7 @@ func (h *handler) submitSubscription(w http.ResponseWriter, r *http.Request) {
 	v.Set("user", user)
 	navMetadata, _ := h.store.GetNavMetadata(user.ID)
 	v.Set("countUnread", navMetadata.CountUnread)
+	v.Set("countStarred", navMetadata.CountStarred)
 	v.Set("countErrorFeeds", navMetadata.CountErrorFeeds)
 	v.Set("defaultUserAgent", config.Opts.HTTPClientUserAgent())
 	v.Set("hasProxyConfigured", config.Opts.HasHTTPClientProxyURLConfigured())
@@ -161,6 +162,7 @@ func (h *handler) submitSubscription(w http.ResponseWriter, r *http.Request) {
 		view.Set("user", user)
 		navMetadata, _ := h.store.GetNavMetadata(user.ID)
 		view.Set("countUnread", navMetadata.CountUnread)
+		view.Set("countStarred", navMetadata.CountStarred)
 		view.Set("countErrorFeeds", navMetadata.CountErrorFeeds)
 		view.Set("hasProxyConfigured", config.Opts.HasHTTPClientProxyURLConfigured())
 

@@ -33,6 +33,7 @@ func (h *handler) saveAPIKey(w http.ResponseWriter, r *http.Request) {
 		view.Set("user", user)
 		navMetadata, _ := h.store.GetNavMetadata(user.ID)
 		view.Set("countUnread", navMetadata.CountUnread)
+		view.Set("countStarred", navMetadata.CountStarred)
 		view.Set("countErrorFeeds", navMetadata.CountErrorFeeds)
 		view.Set("errorMessage", validationErr.Translate(user.Language))
 		response.HTML(w, r, view.Render("create_api_key"))

@@ -91,6 +91,7 @@ func (h *handler) showUnreadEntryPage(w http.ResponseWriter, r *http.Request) {
 	// Fetching the counters here avoids being off by one.
 	navMetadata, _ := h.store.GetNavMetadata(user.ID)
 	view.Set("countUnread", navMetadata.CountUnread)
+	view.Set("countStarred", navMetadata.CountStarred)
 	view.Set("countErrorFeeds", navMetadata.CountErrorFeeds)
 	view.Set("hasSaveEntry", navMetadata.HasSaveEntry)
 

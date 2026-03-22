@@ -46,6 +46,7 @@ func (h *handler) updateSettings(w http.ResponseWriter, r *http.Request) {
 	view.Set("user", user)
 	navMetadata, _ := h.store.GetNavMetadata(user.ID)
 	view.Set("countUnread", navMetadata.CountUnread)
+	view.Set("countStarred", navMetadata.CountStarred)
 	view.Set("countErrorFeeds", navMetadata.CountErrorFeeds)
 	view.Set("default_home_pages", model.HomePages())
 	view.Set("categories_sorting_options", model.CategoriesSortingOptions())

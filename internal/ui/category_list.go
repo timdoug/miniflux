@@ -30,6 +30,7 @@ func (h *handler) showCategoryListPage(w http.ResponseWriter, r *http.Request) {
 	view.Set("menu", "categories")
 	view.Set("user", user)
 	view.Set("countUnread", h.store.CountUnreadEntries(user.ID))
+	view.Set("countStarred", h.store.CountStarredEntries(user.ID))
 	view.Set("countErrorFeeds", h.store.CountUserFeedsWithErrors(user.ID))
 
 	response.HTML(w, r, view.Render("categories"))

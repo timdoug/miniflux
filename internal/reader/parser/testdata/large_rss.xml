@@ -114,7 +114,7 @@ video while reducing its tracking and nuisance capabilities as much as possible:
     &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;https://www.youtube-nocookie.com/embed/jfKfPfyJRdk&amp;quot;&lt;/span&gt;
     &lt;span class="na"&gt;title&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;lofi hip hop radio 📚 - beats to relax/study to&amp;quot;&lt;/span&gt;
     &lt;span class="na"&gt;frameborder&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;0&amp;quot;&lt;/span&gt;
-    &lt;span class="na"&gt;loading&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;lazy&amp;quot;&lt;/span&gt;
+    &lt;span class="na"&gt;loading&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;eager&amp;quot;&lt;/span&gt;
 &lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;iframe&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -144,7 +144,7 @@ video while reducing its tracking and nuisance capabilities as much as possible:
   I'd love to use a more restrictive policy, but the spec doesn't allow to
   provide one, except if the embedded website explicitly allows it, and of
   course youtube doesn't.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;loading="lazy"&lt;/code&gt; in case people don't scroll far enough to see the video, no
+&lt;li&gt;&lt;code&gt;loading="eager"&lt;/code&gt; in case people don't scroll far enough to see the video, no
   need to make them do queries to Google for no reasons.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Don't forget to put a &lt;code&gt;title&lt;/code&gt; for &lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#accessibility_concerns"&gt;accessibility's sake&lt;/a&gt;.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">jvoisin</dc:creator><pubDate>Tue, 27 Feb 2024 14:45:00 +0100</pubDate><guid isPermaLink="false">tag:dustri.org,2024-02-27:/b/youtube-video-embedding-harm-reduction.html</guid><category>web</category></item><item><title>A silly "smart" contract bug</title><link>https://dustri.org/b/a-silly-smart-contract-bug.html</link><description>&lt;p&gt;I was idling on a &lt;a href="https://github.com/stypr"&gt;friend&lt;/a&gt;'s Discord server,

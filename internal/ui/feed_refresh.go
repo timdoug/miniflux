@@ -48,6 +48,10 @@ func (h *handler) refreshAllFeeds(w http.ResponseWriter, r *http.Request) {
 		batchBuilder.WithUserID(userID)
 		batchBuilder.WithLimitPerHost(config.Opts.PollingLimitPerHost())
 
+		if request.QueryBoolParam(r, "errorsOnly", false) {
+			batchBuilder.WithHasParsingErrors()
+		}
+
 		jobs, err := batchBuilder.FetchJobs()
 		if err != nil {
 			response.HTMLServerError(w, r, err)

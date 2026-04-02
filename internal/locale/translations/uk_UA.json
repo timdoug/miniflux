@@ -416,6 +416,7 @@
     "menu.mark_page_as_read": "Відмітити цю сторінку як прочитане",
     "menu.preferences": "Уподобання",
     "menu.refresh_all_feeds": "Оновити всі стрічки у фоновому режимі",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Оновити",
     "menu.search": "Пошук",
     "menu.sessions": "Сеанси",

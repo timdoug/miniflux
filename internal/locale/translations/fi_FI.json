@@ -413,6 +413,7 @@
     "menu.mark_page_as_read": "Merkitse tämä sivu luetuksi",
     "menu.preferences": "Asetukset",
     "menu.refresh_all_feeds": "Päivitä kaikki syötteet taustalla",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Päivitä",
     "menu.search": "Haku",
     "menu.sessions": "Istunnot",

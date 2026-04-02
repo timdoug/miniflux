@@ -58,6 +58,11 @@ func (b *batchBuilder) WithNextCheckExpired() *batchBuilder {
 	return b
 }
 
+func (b *batchBuilder) WithHasParsingErrors() *batchBuilder {
+	b.conditions = append(b.conditions, "parsing_error_count > 0")
+	return b
+}
+
 func (b *batchBuilder) WithoutDisabledFeeds() *batchBuilder {
 	b.conditions = append(b.conditions, "disabled IS false")
 	return b

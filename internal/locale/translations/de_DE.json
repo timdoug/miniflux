@@ -413,6 +413,7 @@
     "menu.mark_page_as_read": "Diese Seite als gelesen markieren",
     "menu.preferences": "Einstellungen",
     "menu.refresh_all_feeds": "Alle Abonnements im Hintergrund aktualisieren",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Aktualisieren",
     "menu.search": "Suche",
     "menu.sessions": "Sitzungen",

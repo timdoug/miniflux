@@ -416,6 +416,7 @@
     "menu.mark_page_as_read": "Отметить эту страницу прочитанной",
     "menu.preferences": "Предпочтения",
     "menu.refresh_all_feeds": "Обновить все подписки в фоне",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Обновить",
     "menu.search": "Поиск",
     "menu.sessions": "Сессии",

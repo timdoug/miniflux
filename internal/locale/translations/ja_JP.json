@@ -410,6 +410,7 @@
     "menu.mark_page_as_read": "このページを既読にする",
     "menu.preferences": "設定情報",
     "menu.refresh_all_feeds": "すべてのフィードをバックグラウンドで更新",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "更新",
     "menu.search": "検索",
     "menu.sessions": "セッション",

@@ -413,6 +413,7 @@
     "menu.mark_page_as_read": "Markeer deze pagina als gelezen",
     "menu.preferences": "Voorkeuren",
     "menu.refresh_all_feeds": "Vernieuw alle feeds in de achtergrond",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Vernieuwen",
     "menu.search": "Zoeken",
     "menu.sessions": "Sessies",

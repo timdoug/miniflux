@@ -416,6 +416,7 @@
     "menu.mark_page_as_read": "Marchează această pagină ca citită",
     "menu.preferences": "Preferințe",
     "menu.refresh_all_feeds": "Reînnoiește toate fluxurile în fundal",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Reînnoire",
     "menu.search": "Caută",
     "menu.sessions": "Sesiuni",

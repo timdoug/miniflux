@@ -413,6 +413,7 @@
     "menu.mark_page_as_read": "Marquer cette page comme lue",
     "menu.preferences": "Préférences",
     "menu.refresh_all_feeds": "Actualiser les abonnements en arrière-plan",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Actualiser",
     "menu.search": "Recherche",
     "menu.sessions": "Sessions",

@@ -410,6 +410,7 @@
     "menu.mark_page_as_read": "将此页标为已读",
     "menu.preferences": "偏好设置",
     "menu.refresh_all_feeds": "后台刷新所有订阅源",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "刷新",
     "menu.search": "搜索",
     "menu.sessions": "会话",

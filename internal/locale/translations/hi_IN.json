@@ -413,6 +413,7 @@
     "menu.mark_page_as_read": "इस पृष्ठ को पढ़ा हुआ चिह्नित करें",
     "menu.preferences": "पसंद",
     "menu.refresh_all_feeds": "पृष्ठभूमि में सभी फ़ीड को ताज़ा करें",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "ताज़ा करें",
     "menu.search": "खोज",
     "menu.sessions": "सत्र",

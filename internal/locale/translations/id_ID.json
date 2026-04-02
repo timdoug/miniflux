@@ -410,6 +410,7 @@
     "menu.mark_page_as_read": "Tandai halaman ini sebagai telah dibaca",
     "menu.preferences": "Preferensi",
     "menu.refresh_all_feeds": "Muat ulang semua umpan di latar belakang",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Muat ulang",
     "menu.search": "Cari",
     "menu.sessions": "Sesi",

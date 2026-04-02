@@ -416,6 +416,7 @@
     "menu.mark_page_as_read": "Oznacz jako przeczytane",
     "menu.preferences": "Preferencje",
     "menu.refresh_all_feeds": "Odśwież w tle wszystkie subskrypcje",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Odśwież",
     "menu.search": "Szukaj",
     "menu.sessions": "Sesje",

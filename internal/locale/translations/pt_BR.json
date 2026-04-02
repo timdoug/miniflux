@@ -413,6 +413,7 @@
     "menu.mark_page_as_read": "Marcar essa página como lida",
     "menu.preferences": "Preferências",
     "menu.refresh_all_feeds": "Atualizar todas as fontes",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Atualizar",
     "menu.search": "Buscar",
     "menu.sessions": "Sessões",

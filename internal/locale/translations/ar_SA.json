@@ -425,6 +425,7 @@
     "menu.mark_page_as_read": "تحديد هذه الصفحة كمقروءة",
     "menu.preferences": "التفضيلات",
     "menu.refresh_all_feeds": "تحديث جميع المصادر في الخلفية",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "تحديث",
     "menu.search": "بحث",
     "menu.sessions": "الجلسات",

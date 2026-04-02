@@ -413,6 +413,7 @@
     "menu.mark_page_as_read": "Σημείωση αυτής της σελίδας ως αναγνωσμένη",
     "menu.preferences": "Προτιμήσεις",
     "menu.refresh_all_feeds": "Ανανέωση όλων των ροών στο παρασκήνιο",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Ανανέωση",
     "menu.search": "Αναζήτηση",
     "menu.sessions": "Συνδέσεις",

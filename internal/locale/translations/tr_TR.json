@@ -413,6 +413,7 @@
     "menu.mark_page_as_read": "Bu sayfayı okundu olarak işaretle",
     "menu.preferences": "Tercihler",
     "menu.refresh_all_feeds": "Tüm beslemeleri arka planda yenile",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Yenile",
     "menu.search": "Ara",
     "menu.sessions": "Oturumlar",

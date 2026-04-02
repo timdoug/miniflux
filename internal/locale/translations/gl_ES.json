@@ -413,6 +413,7 @@
     "menu.mark_page_as_read": "Marca esta páxina como lida",
     "menu.preferences": "Preferencias",
     "menu.refresh_all_feeds": "Actualizar en segundo plano todas as canles",
+    "menu.refresh_error_feeds": "Refresh feeds with errors",
     "menu.refresh_feed": "Actualizar",
     "menu.search": "Buscar",
     "menu.sessions": "Sesións",

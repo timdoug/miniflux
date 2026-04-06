@@ -68,3 +68,40 @@ func (h *handler) refreshAllFeeds(w http.ResponseWriter, r *http.Request) {
 
 	response.HTMLRedirect(w, r, h.routePath("/feeds"))
 }
+
+func (h *handler) refreshFeedsWithErrors(w http.ResponseWriter, r *http.Request) {
+	printer := locale.NewPrinter(request.UserLanguage(r))
+	sess := session.New(h.store, request.SessionID(r))
+
+	// Avoid accidental and excessive refreshes.
+	if time.Since(request.LastForceRefresh(r)) < config.Opts.ForceRefreshInterval() {
+		interval := int(config.Opts.ForceRefreshInterval().Minutes())
+		sess.NewFlashErrorMessage(printer.Plural("alert.too_many_feeds_refresh", interval, interval))
+	} else {
+		userID := request.UserID(r)
+		batchBuilder := h.store.NewBatchBuilder()
+		batchBuilder.WithoutDisabledFeeds()
+		batchBuilder.WithUserID(userID)
+		batchBuilder.WithParsingErrors()
+		batchBuilder.WithLimitPerHost(config.Opts.PollingLimitPerHost())
+
+		jobs, err := batchBuilder.FetchJobs()
+		if err != nil {
+			response.HTMLServerError(w, r, err)
+			return
+		}
+
+		slog.Info(
+			"Triggered a manual refresh of feeds with errors from the web ui",
+			slog.Int64("user_id", userID),
+			slog.Int("nb_jobs", len(jobs)),
+		)
+
+		go h.pool.Push(jobs)
+
+		sess.SetLastForceRefresh()
+		sess.NewFlashMessage(printer.Print("alert.background_feed_refresh"))
+	}
+
+	response.HTMLRedirect(w, r, h.routePath("/feeds"))
+}

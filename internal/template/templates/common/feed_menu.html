@@ -19,5 +19,12 @@
             </button>
         </form>
     </li>
+    <li>
+        <form action="{{ routePath "/feeds/refresh-errors" }}" class="page-header-action-form">
+            <button class="page-button" data-label-loading="{{ t "confirm.loading" }}">
+                {{ icon "refresh" }}{{ t "menu.refresh_error_feeds" }}
+            </button>
+        </form>
+    </li>
 </ul></nav>
 {{ end }}

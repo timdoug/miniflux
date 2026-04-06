@@ -53,6 +53,11 @@ func (b *batchBuilder) WithErrorLimit(limit int) *batchBuilder {
 	return b
 }
 
+func (b *batchBuilder) WithParsingErrors() *batchBuilder {
+	b.conditions = append(b.conditions, "parsing_error_count > 0")
+	return b
+}
+
 func (b *batchBuilder) WithNextCheckExpired() *batchBuilder {
 	b.conditions = append(b.conditions, "next_check_at < now()")
 	return b

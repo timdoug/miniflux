@@ -59,6 +59,7 @@ func Serve(store *storage.Storage, pool *worker.Pool) http.Handler {
 	// Feed listing pages.
 	mux.HandleFunc("GET /feeds", handler.showFeedsPage)
 	mux.HandleFunc("GET /feeds/refresh", handler.refreshAllFeeds)
+	mux.HandleFunc("GET /feeds/refresh-errors", handler.refreshFeedsWithErrors)
 
 	// Individual feed pages.
 	mux.HandleFunc("GET /feed/{feedID}/refresh", handler.refreshFeed)

@@ -414,6 +414,7 @@
     "menu.mark_page_as_read": "Mark this page as read",
     "menu.preferences": "Preferences",
     "menu.refresh_all_feeds": "Refresh all feeds in the background",
+    "menu.refresh_error_feeds": "Refresh only feeds with errors",
     "menu.refresh_feed": "Refresh",
     "menu.search": "Search",
     "menu.sessions": "Sessions",

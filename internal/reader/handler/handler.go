@@ -5,6 +5,7 @@ package handler // import "miniflux.app/v2/internal/reader/handler"
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"log/slog"
 	"time"
@@ -35,6 +36,24 @@ func getTranslatedLocalizedError(store *storage.Storage, userID int64, originalF
 	originalFeed.WithTranslatedErrorMessage(localizedError.Translate(user.Language))
 	store.UpdateFeedError(originalFeed)
 	return localizedError
+}
+
+func logFeedHTTPResponse(userID, feedID int64, feedURL string, responseHandler *fetcher.ResponseHandler) {
+	if !responseHandler.HasResponse() {
+		return
+	}
+
+	attrs := []slog.Attr{
+		slog.Int64("user_id", userID),
+		slog.String("feed_url", feedURL),
+		slog.String("effective_url", responseHandler.EffectiveURL()),
+		slog.Int("status_code", responseHandler.StatusCode()),
+	}
+	if feedID > 0 {
+		attrs = append(attrs, slog.Int64("feed_id", feedID))
+	}
+
+	slog.LogAttrs(context.Background(), slog.LevelInfo, "Feed HTTP response received", attrs...)
 }
 
 func CreateFeedFromSubscriptionDiscovery(store *storage.Storage, userID int64, feedCreationRequest *model.FeedCreationRequestFromSubscriptionDiscovery) (*model.Feed, *locale.LocalizedErrorWrapper) {
@@ -138,6 +157,7 @@ func CreateFeed(store *storage.Storage, userID int64, feedCreationRequest *model
 
 	responseHandler := fetcher.NewResponseHandler(requestBuilder.ExecuteRequest(feedCreationRequest.FeedURL))
 	defer responseHandler.Close()
+	logFeedHTTPResponse(userID, 0, feedCreationRequest.FeedURL, responseHandler)
 
 	if localizedError := responseHandler.LocalizedError(); localizedError != nil {
 		slog.Warn("Unable to fetch feed", slog.String("feed_url", feedCreationRequest.FeedURL), slog.Any("error", localizedError.Error()))
@@ -252,6 +272,7 @@ func RefreshFeed(store *storage.Storage, userID, feedID int64, forceRefresh bool
 
 	responseHandler := fetcher.NewResponseHandler(requestBuilder.ExecuteRequest(originalFeed.FeedURL))
 	defer responseHandler.Close()
+	logFeedHTTPResponse(userID, feedID, originalFeed.FeedURL, responseHandler)
 
 	if responseHandler.IsRateLimited() {
 		retryDelay := responseHandler.ParseRetryDelay()

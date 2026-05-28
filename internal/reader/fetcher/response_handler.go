@@ -30,7 +30,21 @@ func NewResponseHandler(httpResponse *http.Response, clientErr error) *ResponseH
 }
 
 func (r *ResponseHandler) EffectiveURL() string {
+	if r.httpResponse == nil || r.httpResponse.Request == nil || r.httpResponse.Request.URL == nil {
+		return ""
+	}
 	return r.httpResponse.Request.URL.String()
+}
+
+func (r *ResponseHandler) HasResponse() bool {
+	return r.httpResponse != nil
+}
+
+func (r *ResponseHandler) StatusCode() int {
+	if r.httpResponse == nil {
+		return 0
+	}
+	return r.httpResponse.StatusCode
 }
 
 func (r *ResponseHandler) ContentType() string {
